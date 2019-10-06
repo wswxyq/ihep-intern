@@ -29,7 +29,7 @@ void loadFilesToChain (TChain *chain, const std::string &filename){
 void fit4BW_Mass_small()
 {
 
-    /////////TProof::Open("");
+    TProof::Open("");
 
 	//set chain
     TChain *chain = new TChain("Pc2JpsipTuple/DecayTree");
@@ -40,7 +40,7 @@ void fit4BW_Mass_small()
     //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2016_2018_07_18.txt");
     //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2017_2018_07_18.txt");
     chain->Add("/afs/ihep.ac.cn/users/j/jibo/gangadir/workspace/jhe/LocalXML/259/183/output/Tuple.root");
-    //////chain->SetProof();
+    chain->SetProof();
  
     TCut BMCut("B_DTF_M>0");
     TCut BDTCut("B_BDT>0.2");
