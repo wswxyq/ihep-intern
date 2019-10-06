@@ -51,11 +51,11 @@ int cut()
              ;
 
 
-    TFile *newfile = new TFile("/afs/ihep.ac.cn/users/w/wusw/new.root","recreate");
+    TFile *newfile = new TFile("/scratchfs/others/wusw/new.root","recreate");
 
 
 	//creat newtree
-	chain->SetBranchStatus("*",0);
+	chain->SetBranchStatus("*",1);
     chain->SetBranchStatus("B_DTF_M",1);
 	TTree *newtree = (TTree*)chain->CopyTree("");
 
