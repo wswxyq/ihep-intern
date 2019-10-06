@@ -8,7 +8,7 @@
 #include<RooPolynomial.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
-#include<../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx>
+#include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
 
@@ -52,6 +52,14 @@ void fit4BW_Mass()
         && BDTCut 
         && TauCut
              ;
+
+
+    RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
+    RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
+    RooRealVar B_LOKI_FDS("B_LOKI_FDS", "B_LOKI_FDS", -RooNumber::infinity(), RooNumber::infinity());
+
+
+
 	/*
     //...mass range
     const Double_t MassMin = 4000;
@@ -109,6 +117,8 @@ void fit4BW_Mass()
     RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3));
 
     RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
+
+
 
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x), Import(*chain), 
 		                Cut(totCuts));
