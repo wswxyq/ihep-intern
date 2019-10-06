@@ -8,7 +8,7 @@
 #include<RooPolynomial.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
-#include<../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx>
+#include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
 
