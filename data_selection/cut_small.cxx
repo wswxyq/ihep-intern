@@ -31,12 +31,14 @@ int cut()
 	//set chain
     TChain *chain = new TChain("Pc2JpsipTuple/DecayTree");
 	//load file
+/*
     loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2011_2018_07_18.txt");
     loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2012_2018_07_18.txt");
     loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2015_2018_07_18.txt");
     loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2016_2018_07_18.txt");
     loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2017_2018_07_18.txt");
-
+    */
+    chain->Add("/afs/ihep.ac.cn/users/j/jibo/gangadir/workspace/jhe/LocalXML/259/170/output/Tuple.root");
     //chain->SetProof();
  
     TCut BMCut("B_DTF_M>0");
