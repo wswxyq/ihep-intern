@@ -1,0 +1,6 @@
+note/*.aux
+note/*.log
+note/*.pdf
+note/*.gz
+
+.vscode/

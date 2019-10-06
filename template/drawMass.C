@@ -1,3 +1,13 @@
+#include<stdio.h>
+#include<RooFit.h>
+#include<TChain.h>
+#include<TProof.h>
+#include<TCut.h>
+#include<TH1F.h>
+using namespace std;
+
+
+
 // $Id: $
 void loadFilesToChain (TChain *chain, const std::string &filename){
   string line;
@@ -13,6 +23,7 @@ void drawMass()
 {
 
   TProof::Open("");
+  
 
   TChain *chain = new TChain("Pc2JpsipTuple/DecayTree");
 
@@ -36,8 +47,8 @@ void drawMass()
        ;
  
   //...mass range
-  const Double_t MassMin = 4000;
-  const Double_t MassMax = 6000;
+  const Double_t MassMin = 4200;
+  const Double_t MassMax = 4600;
   const Int_t BinNum = 200;
 
   //...mass resolution
@@ -50,6 +61,7 @@ void drawMass()
   chain->Project("h10", "B_DTF_M", totCuts );
 
   h10->Draw("E");
+  h10->Print("draw.pdf");
 
     
   
