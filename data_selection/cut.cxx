@@ -57,7 +57,7 @@ int cut()
 	//creat newtree
 	chain->SetBranchStatus("*",1);
     chain->SetBranchStatus("B_DTF_M",1);
-	TTree *newtree = (TTree*)chain->CopyTree("");
+	TTree *newtree = (TTree*)chain->CopyTree(totCuts);
 
 	newfile->cd();
     newtree->Write("ReducedTree");
