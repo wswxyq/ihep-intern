@@ -121,7 +121,7 @@ void fit4BW_Mass()
 
 
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x), Import(*chain), 
-		                Cut(totCuts));
+		                Cut("((B_DTF_M>0)&&(B_BDT>0.2))&&(B_LOKI_FDS>49)"));
 
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
