@@ -23,7 +23,7 @@ void loadFilesToChain (TChain *chain, const std::string &filename){
 
 
 
-int cut()
+int cut_small()
 {
 
     //TProof::Open("");
