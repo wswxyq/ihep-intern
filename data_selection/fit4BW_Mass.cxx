@@ -24,7 +24,7 @@ void fit4BW_Mass()
     chain->Add("BDT_reduced.root");
     chain->SetProof();
  
-    RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
+    //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_LOKI_FDS("B_LOKI_FDS", "B_LOKI_FDS", -RooNumber::infinity(), RooNumber::infinity());
 
@@ -50,7 +50,7 @@ void fit4BW_Mass()
 	//define relativistic Breit Wigner distribution
 
 	
-	RooRealVar x("x", "mass spectrum", 4200, 4600, "MeV");
+	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
     //ref: page 131 LHCb-ANA-2018-043
     /*
     Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays, 
@@ -90,7 +90,7 @@ void fit4BW_Mass()
 
 
 
-    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_DTF_M, B_BDT, B_LOKI_FDS), Import(*chain), 
+    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
 		                Cut(""));
 
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
