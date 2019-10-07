@@ -139,5 +139,7 @@ void fit4BW_Mass_combined()
     TCanvas* c = new TCanvas("total_plot","total_plot", 800, 1200) ;
 
     xframe->Draw() ;
+    c->Print("./fit.pdf");
+
 
 }
