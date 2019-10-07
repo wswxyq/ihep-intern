@@ -95,8 +95,19 @@ void fit4BW_Mass()
 
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
+	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
-
+	ds->plotOn(xframe);
+	event.plotOn(xframe) ;
+	RooHist* hpull = xframe->pullHist() ;
+	event.plotOn(xframe,Components(signal),LineColor(kRed),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
         
+    TCanvas* c = new TCanvas("total_plot","total_plot", 800, 1200) ;
+
+    xframe->Draw() ;
+    c->Print("./fit.pdf");
+
+
     
 }
