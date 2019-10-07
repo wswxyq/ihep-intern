@@ -16,13 +16,13 @@ using namespace RooFit ;
 void fit4BW_Mass_background()
 {
 
-    TProof::Open("");
+    //TProof::Open("");
 
 	//set chain
     TChain *chain = new TChain("ReducedTree");
 	//load file
     chain->Add("BDT_reduced.root");
-    chain->SetProof();
+    //chain->SetProof();
  
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
