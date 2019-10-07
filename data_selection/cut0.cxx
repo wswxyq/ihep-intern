@@ -51,11 +51,12 @@ int cut0()
              ;
 
 
-    TFile *newfile = new TFile("/scratchfs/others/wusw/new.root","recreate");
+    TFile *newfile = new TFile("/scratchfs/others/wusw/BDT_reduced.root","recreate");
 
 
 	//creat newtree
 	chain->SetBranchStatus("*",0);
+	//chain->SetBranchStatus("*",1);
     chain->SetBranchStatus("B_DTF_M",1);
     chain->SetBranchStatus("B_BDT",1);
     chain->SetBranchStatus("B_LOKI_FDS",1);
