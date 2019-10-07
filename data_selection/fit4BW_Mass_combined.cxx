@@ -8,6 +8,9 @@
 #include<RooPolynomial.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
+#include "RooHist.h"
+#include "RooPlot.h"
+#include "TCanvas.h"
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
@@ -26,7 +29,7 @@ void loadFilesToChain (TChain *chain, const std::string &filename){
     }
 }
 
-void fit4BW_Mass_small()
+void fit4BW_Mass_combined()
 {
 
     TProof::Open("");
@@ -34,12 +37,12 @@ void fit4BW_Mass_small()
 	//set chain
     TChain *chain = new TChain("Pc2JpsipTuple/DecayTree");
 	//load file
-    //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2011_2018_07_18.txt");
-    //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2012_2018_07_18.txt");
-    //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2015_2018_07_18.txt");
-    //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2016_2018_07_18.txt");
-    //loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2017_2018_07_18.txt");
-    chain->Add("/afs/ihep.ac.cn/users/j/jibo/gangadir/workspace/jhe/LocalXML/259/183/output/Tuple.root");
+    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2011_2018_07_18.txt");
+    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2012_2018_07_18.txt");
+    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2015_2018_07_18.txt");
+    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2016_2018_07_18.txt");
+    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2017_2018_07_18.txt");
+
     chain->SetProof();
  
     TCut BMCut("B_DTF_M>0");
@@ -120,13 +123,21 @@ void fit4BW_Mass_small()
 
 
 
-    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x), Import(*chain), 
-		                Cut(totCuts));
+    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_DTF_M, B_BDT, B_LOKI_FDS), Import(*chain), 
+		                Cut("(B_DTF_M>0)&&(B_BDT>0.2)&&(B_LOKI_FDS>49)"));
 
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
+	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
-
+	ds->plotOn(xframe);
+	event.plotOn(xframe) ;
+	RooHist* hpull = xframe->pullHist() ;
+	event.plotOn(xframe,Components(signal),LineColor(kRed),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
         
-    
+    TCanvas* c = new TCanvas("total_plot","total_plot", 800, 1200) ;
+
+    xframe->Draw() ;
+
 }

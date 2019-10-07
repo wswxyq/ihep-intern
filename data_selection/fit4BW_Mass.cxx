@@ -13,47 +13,17 @@ using namespace std;
 using namespace RooFit ;
 
 
-
-
-// $Id: $
-void loadFilesToChain (TChain *chain, const std::string &filename){
-    string line;
-    ifstream source(filename.c_str(), ios::in);
-    while ( getline (source, line) )
-    {
-        // you may want to clean line here...
-        chain->AddFile( line.c_str() );
-    }
-}
-
 void fit4BW_Mass()
 {
 
     TProof::Open("");
 
 	//set chain
-    TChain *chain = new TChain("Pc2JpsipTuple/DecayTree");
+    TChain *chain = new TChain("ReducedTree");
 	//load file
-    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2011_2018_07_18.txt");
-    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2012_2018_07_18.txt");
-    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2015_2018_07_18.txt");
-    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2016_2018_07_18.txt");
-    loadFilesToChain(chain, "/afs/ihep.ac.cn/users/j/jibo/public/GangaScripts/Pc2JpsiP_BDTD_2017_2018_07_18.txt");
-
+    chain->Add("BDT_reduced.root");
     chain->SetProof();
  
-    TCut BMCut("B_DTF_M>0");
-    TCut BDTCut("B_BDT>0.2");
-
-    TCut TauCut("B_LOKI_FDS>49");
-
-    TCut totCuts = 
-        BMCut
-        && BDTCut 
-        && TauCut
-             ;
-
-
     RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_LOKI_FDS("B_LOKI_FDS", "B_LOKI_FDS", -RooNumber::infinity(), RooNumber::infinity());
@@ -121,7 +91,7 @@ void fit4BW_Mass()
 
 
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_DTF_M, B_BDT, B_LOKI_FDS), Import(*chain), 
-		                Cut("(B_DTF_M>0)&&(B_BDT>0.2)&&(B_LOKI_FDS>49)"));
+		                Cut(""));
 
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
