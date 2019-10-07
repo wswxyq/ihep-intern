@@ -2,5 +2,5 @@ note/*.aux
 note/*.log
 note/*.pdf
 note/*.gz
-
+./*/nohup.out
 .vscode/
