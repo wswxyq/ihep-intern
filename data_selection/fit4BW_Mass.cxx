@@ -58,19 +58,19 @@ void fit4BW_Mass()
     the Pc(4450)+
     */
 
-    RooRealVar M4312("M4312", "M4312", 4312.1);
-    RooRealVar M4440("M4440", "M4440", 4440);
-    RooRealVar M4457("M4457", "M4457", 4457);
-    RooRealVar Mx("Mx", "Mx", 4380, 4300, 4460);
+    RooRealVar M4312("M4312", "M4312", 4312.0);
+    RooRealVar M4440("M4440", "M4440", 4440.2);
+    RooRealVar M4457("M4457", "M4457", 4456.6);
+    RooRealVar Mx("Mx", "Mx", 4394.7);
 
-    RooRealVar x1("x1", "para1", -1., 1.);
-	RooRealVar x2("x2", "para2", -1., 1.);
-	RooRealVar x3("x3", "para3", -1., 1.);
+    RooRealVar x1("x1", "para1", -10., 10.);
+	RooRealVar x2("x2", "para2", -10., 10.);
+	RooRealVar x3("x3", "para3", -10., 10.);
 
-    RooRealVar gamma4312("gamma4312", "gamma4312", 10.0, 5.0, 15.0);
-    RooRealVar gamma4440("gamma4440", "gamma4440", 20.0, 15.0, 40.0);
-    RooRealVar gamma4457("gamma4457", "gamma4457", 10.0, 8.0, 12.0);
-    RooRealVar gammax("gammax", "gammax", 100.0, 0.0, 200.0);
+    RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
+    RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
+    RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
+    RooRealVar gammax("gammax", "gammax", 62.7);
 
     RelativisticBW_wsw rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
     RelativisticBW_wsw rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
@@ -79,7 +79,7 @@ void fit4BW_Mass()
 
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
-    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.0);
+    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
     RooRealVar signal_frac("signal_frac", "signal_frac", 0.1, 0., 1.);
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
