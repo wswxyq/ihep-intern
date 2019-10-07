@@ -13,6 +13,7 @@
 #include "RooAbsCategory.h" 
 #include <math.h> 
 #include "TMath.h" 
+using namespace TMath;
 
 ClassImp(RelativisticBW_wsw); 
 
@@ -41,7 +42,7 @@ ClassImp(RelativisticBW_wsw);
  Double_t RelativisticBW_wsw::evaluate() const 
  { 
    // ENTER EXPRESSION IN TERMS OF VARIABLE ARGUMENTS HERE 
-   return 1.0/( gamma * (1+ (M*M-x*x)*(M*M-x*x) / (M*M*gamma*gamma) ) ); 
+   return 14.0*gamma*gamma*M*M/(22.0* (x*x-M*M)*(x*x-M*M)+x*x*x*x*(gamma*gamma)/(M*M) ); 
  } 
 
 
