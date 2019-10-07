@@ -13,7 +13,7 @@ using namespace std;
 using namespace RooFit ;
 
 
-void fit4BW_Mass()
+void fit4BW_Mass_background()
 {
 
     TProof::Open("");
@@ -93,15 +93,14 @@ void fit4BW_Mass()
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
 		                Cut(""));
 
-    auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
+    auto result= background.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
 	ds->plotOn(xframe);
-	event.plotOn(xframe) ;
+	background.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
-	event.plotOn(xframe,Components(signal),LineColor(kRed),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
+
         
     TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 600) ;
 
