@@ -12,6 +12,7 @@
 #include<RooHist.h>
 #include<TCanvas.h>
 #include<RooPlot.h>
+#include<TMath.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
@@ -66,9 +67,9 @@ void fit4BW_Mass()
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
 
-    RooRealVar x1("x1", "para1", 0.28, -1000., 1000.);
-	RooRealVar x2("x2", "para2", -0.04, -10., 10.);
-	RooRealVar x3("x3", "para3", 0.0005, -10., 10.);
+    RooRealVar x1("x1", "para1", 0.28, -RooNumber::infinity(), RooNumber::infinity());
+	RooRealVar x2("x2", "para2", -0.04, -RooNumber::infinity(), RooNumber::infinity());
+	RooRealVar x3("x3", "para3", 0.0005, -RooNumber::infinity(), RooNumber::infinity());
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
