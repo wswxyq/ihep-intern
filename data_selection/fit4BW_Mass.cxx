@@ -77,10 +77,10 @@ void fit4BW_Mass()
     RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
     RooRealVar gammax("gammax", "gammax", 62.7);
 
-    RelativisticBW_wsw rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
-    RelativisticBW_wsw rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
-    RelativisticBW_wsw rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
-    RelativisticBW_wsw rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
+    RooGaussian rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
+    RooGaussian rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
+    RooGaussian rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
+    RooGaussian rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
 
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
@@ -104,7 +104,6 @@ void fit4BW_Mass()
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 	RooPlot* xframe_2 = x.frame(Title(" ")) ;
-	RooPlot* xframe_3 = x.frame(Title(" ")) ;
 
 	xframe_2->SetYTitle("pull distribution");
 
@@ -120,7 +119,7 @@ void fit4BW_Mass()
     xframe_2->addPlotable(hpull, "P") ;
 
     TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 1000) ;
-	c->Divide(1,2,3) ;
+	c->Divide(1,2) ;
 	c->cd(1) ; 
     xframe->Draw() ;
 
@@ -129,11 +128,6 @@ void fit4BW_Mass()
 	//xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
 	//xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
 	xframe_2->Draw() ;
-
-    c->cd(3);
-	event.plotOn(xframe_3,Components(signal_frac_4440),LineColor(kGreen),LineStyle(kDashed)) ;
-    xframe_3->Draw();
-
     c->Print("./fit.pdf");
 
 
