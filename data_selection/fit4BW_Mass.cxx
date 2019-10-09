@@ -114,13 +114,13 @@ void fit4BW_Mass()
 	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
     xframe_2->addPlotable(hpull, "P") ;
 
-    TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 600) ;
+    TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 1000) ;
 	c->Divide(1,2) ;
 	c->cd(1) ; 
     xframe->Draw() ;
 
 	c->cd(2) ; 
-	gPad->SetLeftMargin(0.15) ; 
+	//gPad->SetLeftMargin(0.15) ; 
 	//xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
 	//xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
 	xframe_2->Draw() ;
