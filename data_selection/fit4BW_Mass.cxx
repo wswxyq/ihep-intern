@@ -67,9 +67,9 @@ void fit4BW_Mass()
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
     
-    RooRealVar x1("x1", "para1", 74.3657, -100, 100);
-	RooRealVar x2("x2", "para2", -6.47583e-05, -1, 1);
-	RooRealVar x3("x3", "para3", -3.33708e-06, -1, 1);
+    RooRealVar x1("x1", "para1", 74.3657, -80, 80);
+	RooRealVar x2("x2", "para2", -6.47583e-05, -10.e-05, -4.e-05);
+	RooRealVar x3("x3", "para3", -3.33708e-06, -10.e-06, 2.0e-06);
     
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
