@@ -118,15 +118,14 @@ void fit4BW_Mass()
 	c->Divide(1,2) ;
 	c->cd(1) ; 
     xframe->Draw() ;
-    c->Print("./fit.pdf");
-
-
 
 	c->cd(2) ; 
 	gPad->SetLeftMargin(0.15) ; 
-	xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
-	xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
+	//xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
+	//xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
 	xframe_2->Draw() ;
+
+    c->Print("./fit.pdf");
 
 
 
