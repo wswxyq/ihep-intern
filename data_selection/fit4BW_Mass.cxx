@@ -77,10 +77,10 @@ void fit4BW_Mass()
     RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
     RooRealVar gammax("gammax", "gammax", 62.7);
 
-    RooGaussian rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
-    RooGaussian rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
-    RooGaussian rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
-    RooGaussian rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
+    RelativisticBW_wsw rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
+    RelativisticBW_wsw rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
+    RelativisticBW_wsw rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
+    RelativisticBW_wsw rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
 
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
@@ -111,10 +111,10 @@ void fit4BW_Mass()
 	ds->plotOn(xframe);
 	event.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
-	event.plotOn(xframe,Components(signal_frac_4312),LineColor(kPink),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(signal_frac_4440),LineColor(kGreen),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(signal_frac_4457),LineColor(kYellow),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(signal_frac_x),LineColor(kOrange),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(rtbw4312),LineColor(kPink),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(rtbw4440),LineColor(kGreen),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(rtbw4457),LineColor(kYellow),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(rtbwx),LineColor(kOrange),LineStyle(kDashed)) ;
 	event.plotOn(xframe,Components(background),LineColor(kCyan),LineStyle(kDashed)) ;
     xframe_2->addPlotable(hpull, "P") ;
 
