@@ -102,7 +102,7 @@ void fit4BW_Mass_background()
 	RooHist* hpull = xframe->pullHist() ;
 
         
-    TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 600) ;
+    TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
 
     xframe->Draw() ;
     c->Print("./fit.pdf");
