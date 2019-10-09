@@ -103,17 +103,32 @@ void fit4BW_Mass()
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
+	RooPlot* xframe_2 = x.frame(Title(" ")) ;
+	xframe_2->SetYTitle("pull distribution");
+
 
 	ds->plotOn(xframe);
 	event.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
 	event.plotOn(xframe,Components(signal),LineColor(kRed),LineStyle(kDashed)) ;
 	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
-        
-    TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
+    xframe_2->addPlotable(hpull, "P") ;
 
+    TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 600) ;
+	c->Divide(1,2) ;
+	c->cd(1) ; 
     xframe->Draw() ;
     c->Print("./fit.pdf");
+
+
+
+	c->cd(2) ; 
+	gPad->SetLeftMargin(0.15) ; 
+	xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
+	xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
+	xframe_2->Draw() ;
+
+
 
 	std::ofstream myfile;
     myfile.open ("./fit.txt");
@@ -121,6 +136,10 @@ void fit4BW_Mass()
 	myfile<<"x1: "<<x1.getVal()<<endl;
 	myfile<<"x2: "<<x2.getVal()<<endl;
 	myfile<<"x3: "<<x3.getVal()<<endl;
+	myfile<<"signal_frac_4312: "<<signal_frac_4312.getVal()<<endl;
+	myfile<<"signal_frac_4440: "<<signal_frac_4440.getVal()<<endl;
+	myfile<<"signal_frac_4457: "<<signal_frac_4457.getVal()<<endl;
+	myfile<<"signal_frac_x: "<<signal_frac_x.getVal()<<endl;
     myfile.close();
     x1.Print();
     x2.Print();
