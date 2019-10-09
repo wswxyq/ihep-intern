@@ -120,5 +120,9 @@ void fit4BW_Mass_background()
 	myfile<<"x2: "<<x2.getVal()<<endl;
 	myfile<<"x3: "<<x3.getVal()<<endl;
     myfile.close();
+    x1.Print();
+    x2.Print();
+    x3.Print();
+
     
 }
