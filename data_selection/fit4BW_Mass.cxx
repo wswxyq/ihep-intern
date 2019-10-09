@@ -110,8 +110,11 @@ void fit4BW_Mass()
 	ds->plotOn(xframe);
 	event.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
-	event.plotOn(xframe,Components(signal),LineColor(kRed),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(signal_frac_4312),LineColor(kPink),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(signal_frac_4440),LineColor(kGreen),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(signal_frac_4457),LineColor(kYellow),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(signal_frac_x),LineColor(kOrange),LineStyle(kDashed)) ;
+	event.plotOn(xframe,Components(background),LineColor(kCyan),LineStyle(kDashed)) ;
     xframe_2->addPlotable(hpull, "P") ;
 
     TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 1000) ;
