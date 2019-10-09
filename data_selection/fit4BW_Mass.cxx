@@ -48,7 +48,6 @@ void fit4BW_Mass()
 
     h10->Draw("E");
 	*/
-	//define relativistic Breit Wigner distribution
 
 	
 	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
@@ -78,10 +77,10 @@ void fit4BW_Mass()
     RooGaussian rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
     RooGaussian rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
 
-    RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
-    RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
-    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
-    RooRealVar signal_frac("signal_frac", "signal_frac", 0.1, 0., 1.);
+    RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.3, 0., 1.);
+    RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.2, 0., 1.);
+    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.2, 0., 1.);
+    RooRealVar signal_frac("signal_frac", "signal_frac", 0.3, 0., 1.);
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
@@ -104,7 +103,7 @@ void fit4BW_Mass()
 	event.plotOn(xframe,Components(signal),LineColor(kRed),LineStyle(kDashed)) ;
 	event.plotOn(xframe,Components(background),LineColor(kBlue),LineStyle(kDashed)) ;
         
-    TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 600) ;
+    TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
 
     xframe->Draw() ;
     c->Print("./fit.pdf");
