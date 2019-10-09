@@ -8,6 +8,7 @@
 #include<RooPolynomial.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
+#include<RooGaussian.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
@@ -63,19 +64,19 @@ void fit4BW_Mass()
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
 
-    RooRealVar x1("x1", "para1", 0.28, -10., 10.);
-	RooRealVar x2("x2", "para2", 1.65, -10., 10.);
-	RooRealVar x3("x3", "para3", 0.48, -10., 10.);
+    RooRealVar x1("x1", "para1", 0.28, -1000., 1000.);
+	RooRealVar x2("x2", "para2", -0.04, -10., 10.);
+	RooRealVar x3("x3", "para3", 0.0005, -10., 10.);
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
     RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
     RooRealVar gammax("gammax", "gammax", 62.7);
 
-    RelativisticBW_wsw rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
-    RelativisticBW_wsw rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
-    RelativisticBW_wsw rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
-    RelativisticBW_wsw rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
+    RooGaussian rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
+    RooGaussian rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
+    RooGaussian rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
+    RooGaussian rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
 
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
