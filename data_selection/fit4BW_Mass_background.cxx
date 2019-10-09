@@ -8,6 +8,10 @@
 #include<RooPolynomial.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
+#include<RooHist.h>
+#include<TCanvas.h>
+#include<RooPlot.h>
+#include<TMath.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
@@ -63,9 +67,9 @@ void fit4BW_Mass_background()
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
 
-    RooRealVar x1("x1", "para1", 0.28, -100, 100);
-	RooRealVar x2("x2", "para2", -0.04, -100, 100);
-	RooRealVar x3("x3", "para3", 0.0005, -10, 10);
+    RooRealVar x1("x1", "para1", 0., -100, 100);
+	RooRealVar x2("x2", "para2", 0., -100, 100);
+	RooRealVar x3("x3", "para3", 0., -10, 10);
 	RooRealVar x4("x4", "para4", 0.48, -10., 10.);
 	RooRealVar x5("x5", "para5", 0.48, -10., 10.);
 
@@ -107,8 +111,14 @@ void fit4BW_Mass_background()
     TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
 
     xframe->Draw() ;
-    c->Print("./fit.pdf");
+    c->Print("./fit_background.pdf");
 
-
+	std::ofstream myfile;
+    myfile.open ("./fit_background.txt");
+	myfile<<"number of entries in dataset: "<<ds->numEntries()<<endl;
+	myfile<<"x1: "<<x1.getVal()<<endl;
+	myfile<<"x2: "<<x2.getVal()<<endl;
+	myfile<<"x3: "<<x3.getVal()<<endl;
+    myfile.close();
     
 }
