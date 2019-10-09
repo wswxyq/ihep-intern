@@ -68,8 +68,8 @@ void fit4BW_Mass()
     RooRealVar Mx("Mx", "Mx", 4394.7);
     
     RooRealVar x1("x1", "para1", 74.3657, -100, 100);
-	RooRealVar x2("x2", "para2", -6.47583e-05, -100, 100);
-	RooRealVar x3("x3", "para3", -3.33708e-06, -10, 10);
+	RooRealVar x2("x2", "para2", -6.47583e-05, -1, 1);
+	RooRealVar x3("x3", "para3", -3.33708e-06, -1, 1);
     
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
@@ -113,6 +113,15 @@ void fit4BW_Mass()
     xframe->Draw() ;
     c->Print("./fit.pdf");
 
-
+	std::ofstream myfile;
+    myfile.open ("./fit.txt");
+	myfile<<"number of entries in dataset: "<<ds->numEntries()<<endl;
+	myfile<<"x1: "<<x1.getVal()<<endl;
+	myfile<<"x2: "<<x2.getVal()<<endl;
+	myfile<<"x3: "<<x3.getVal()<<endl;
+    myfile.close();
+    x1.Print();
+    x2.Print();
+    x3.Print();
     
 }
