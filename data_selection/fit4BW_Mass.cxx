@@ -104,6 +104,8 @@ void fit4BW_Mass()
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 	RooPlot* xframe_2 = x.frame(Title(" ")) ;
+	RooPlot* xframe_3 = x.frame(Title(" ")) ;
+
 	xframe_2->SetYTitle("pull distribution");
 
 
@@ -118,7 +120,7 @@ void fit4BW_Mass()
     xframe_2->addPlotable(hpull, "P") ;
 
     TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 1000) ;
-	c->Divide(1,2) ;
+	c->Divide(1,2,3) ;
 	c->cd(1) ; 
     xframe->Draw() ;
 
@@ -127,6 +129,10 @@ void fit4BW_Mass()
 	//xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
 	//xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
 	xframe_2->Draw() ;
+
+    c->cd(3);
+	event.plotOn(xframe_3,Components(signal_frac_4440),LineColor(kGreen),LineStyle(kDashed)) ;
+    xframe_3->Draw();
 
     c->Print("./fit.pdf");
 
