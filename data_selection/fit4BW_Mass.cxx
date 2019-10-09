@@ -72,10 +72,10 @@ void fit4BW_Mass()
     RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
     RooRealVar gammax("gammax", "gammax", 62.7);
 
-    RooGaussian rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
-    RooGaussian rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
-    RooGaussian rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
-    RooGaussian rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
+    RelativisticBW_wsw rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
+    RelativisticBW_wsw rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
+    RelativisticBW_wsw rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
+    RelativisticBW_wsw rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
 
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.3);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.2);
