@@ -54,7 +54,7 @@ void fit4BW_Mass_background()
 	//define relativistic Breit Wigner distribution
 
 	
-	RooRealVar x("B_DTF_M", "B_DTF_M", 4000, 6000, "MeV");
+	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
     //ref: page 131 LHCb-ANA-2018-043
     /*
     Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays, 
