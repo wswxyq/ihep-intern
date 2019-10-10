@@ -26,7 +26,7 @@ void fit4BW_Mass()
 	//set chain
     TChain *chain = new TChain("ReducedTree");
 	//load file
-    chain->Add("BDT_reduced.root");
+    chain->Add("/scratchfs/others/wusw/BDT_reduced.root");
     //chain->SetProof();
  
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());

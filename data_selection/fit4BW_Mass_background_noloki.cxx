@@ -17,7 +17,7 @@ using namespace std;
 using namespace RooFit ;
 
 
-void fit4BW_Mass_background()
+void fit4BW_Mass_background_noloki()
 {
 
     //TProof::Open("");
@@ -25,7 +25,7 @@ void fit4BW_Mass_background()
 	//set chain
     TChain *chain = new TChain("ReducedTree");
 	//load file
-    chain->Add("/scratchfs/others/wusw/BDT_reduced.root");
+    chain->Add("/scratchfs/others/wusw/BDT_reduced_noloki.root");
     //chain->SetProof();
  
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
@@ -99,7 +99,7 @@ void fit4BW_Mass_background()
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
 		                Cut(""));
 
-    auto result= background.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
+    auto result= background.fitTo(*ds, "l", RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
@@ -111,10 +111,10 @@ void fit4BW_Mass_background()
     TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
 
     xframe->Draw() ;
-    c->Print("./fit_background.pdf");
+    c->Print("./fit_background_noloki.pdf");
 
 	std::ofstream myfile;
-    myfile.open ("./fit_background.txt");
+    myfile.open ("./fit_background_noloki.txt");
 	myfile<<"number of entries in dataset: "<<ds->numEntries()<<endl;
 	myfile<<"x1: "<<x1.getVal()<<endl;
 	myfile<<"x2: "<<x2.getVal()<<endl;
