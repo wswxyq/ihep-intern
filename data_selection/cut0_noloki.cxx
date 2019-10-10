@@ -24,7 +24,7 @@ void loadFilesToChain (TChain *chain, const std::string &filename){
 
 
 
-int cut0()
+int cut0_noloki()
 {
 
     TProof::Open("");
