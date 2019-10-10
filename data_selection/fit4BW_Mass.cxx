@@ -151,5 +151,6 @@ void fit4BW_Mass()
     signal_frac_4457.Print();
     signal_frac_x.Print();
 
+    result->Print("v");
     
 }

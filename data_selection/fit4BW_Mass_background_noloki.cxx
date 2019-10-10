@@ -12,6 +12,7 @@
 #include<TCanvas.h>
 #include<RooPlot.h>
 #include<TMath.h>
+#include<RooFitResult.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
@@ -67,11 +68,11 @@ void fit4BW_Mass_background_noloki()
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
 
-    RooRealVar x1("x1", "para1", 74.3657, -RooNumber::infinity(), RooNumber::infinity());
-	RooRealVar x2("x2", "para2", -6.47583e-05, -RooNumber::infinity(), RooNumber::infinity());
-	RooRealVar x3("x3", "para3", -3.33708e-06, -RooNumber::infinity(), RooNumber::infinity());
-	RooRealVar x4("x4", "para4", 0.48, -10., 10.);
-	RooRealVar x5("x5", "para5", 0.48, -10., 10.);
+    RooRealVar x1("x1", "para1", 3.17395e+01, -100., 100.);
+	RooRealVar x2("x2", "para2", 1.21695e-02, -1., 1.);
+	RooRealVar x3("x3", "para3", -4.02805e-06, -1., 1.);
+	RooRealVar x4("x4", "para4", 0., -1., 1.);
+	RooRealVar x5("x5", "para5", 0., -1., 1.);
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
@@ -90,9 +91,9 @@ void fit4BW_Mass_background_noloki()
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
-    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3));
+    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3, x4));
 
-    RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
+    //RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
 
 
 
@@ -120,9 +121,9 @@ void fit4BW_Mass_background_noloki()
 	myfile<<"x2: "<<x2.getVal()<<endl;
 	myfile<<"x3: "<<x3.getVal()<<endl;
     myfile.close();
-    x1.Print();
-    x2.Print();
-    x3.Print();
-
+    //x1.Print();
+    //x2.Print();
+    //x3.Print();
+    result->Print("v");
     
 }

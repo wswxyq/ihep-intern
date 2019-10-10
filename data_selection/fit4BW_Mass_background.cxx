@@ -123,6 +123,7 @@ void fit4BW_Mass_background()
     x1.Print();
     x2.Print();
     x3.Print();
+    result->Print("v");
 
     
 }

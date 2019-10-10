@@ -140,6 +140,7 @@ void fit4BW_Mass_combined()
 
     xframe->Draw() ;
     c->Print("./fit.pdf");
+    result->Print("v");
 
 
 }
