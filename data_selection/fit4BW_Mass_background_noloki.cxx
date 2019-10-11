@@ -71,8 +71,9 @@ void fit4BW_Mass_background_noloki()
     RooRealVar x1("x1", "para1", 3.17395e+01, -100., 100.);
 	RooRealVar x2("x2", "para2", 1.21695e-02, -1., 1.);
 	RooRealVar x3("x3", "para3", -4.02805e-06, -1., 1.);
-	RooRealVar x4("x4", "para4", 0., -1., 1.);
-	RooRealVar x5("x5", "para5", 0., -1., 1.);
+	RooRealVar x4("x4", "para4", 1.e-09, -1., 1.);
+	RooRealVar x5("x5", "para5", 1.e-012, -1., 1.);
+	RooRealVar x6("x6", "para6", 1.e-015, -1., 1.);
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
@@ -91,7 +92,7 @@ void fit4BW_Mass_background_noloki()
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
-    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3, x4));
+    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3, x4, x5, x6));
 
     //RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
 
