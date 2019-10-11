@@ -21,13 +21,13 @@ using namespace RooFit ;
 void fit4BW_Mass_background_noloki()
 {
 
-    //TProof::Open("");
+    TProof::Open("");
 
 	//set chain
     TChain *chain = new TChain("ReducedTree");
 	//load file
     chain->Add("/scratchfs/others/wusw/BDT_reduced_noloki.root");
-    //chain->SetProof();
+    chain->SetProof();
  
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
