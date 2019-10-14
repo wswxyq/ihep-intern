@@ -92,7 +92,7 @@ void fit4BW_Mass_background_noloki()
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
-    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3, x4, x5, x6));
+    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3));
 
     //RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
 
@@ -101,7 +101,7 @@ void fit4BW_Mass_background_noloki()
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
 		                Cut(""));
 
-    auto result= background.fitTo(*ds, "l", RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
+    auto result= background.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
