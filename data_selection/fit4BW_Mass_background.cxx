@@ -83,7 +83,7 @@ void fit4BW_Mass_background()
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
     */
 
-    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3));
+    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3), 1);
 
     //RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
 
@@ -96,7 +96,7 @@ void fit4BW_Mass_background()
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
-	ds->plotOn(xframe);
+	ds->plotOn(xframe, Binning(20));
 	background.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
 
