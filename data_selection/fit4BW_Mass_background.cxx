@@ -111,6 +111,7 @@ void fit4BW_Mass_background()
     // Access list of final fit parameter values
     cout << "final value of floating parameters" << endl ;
     result->floatParsFinal().Print("s");
+    ds->Print();
 
     
 }
