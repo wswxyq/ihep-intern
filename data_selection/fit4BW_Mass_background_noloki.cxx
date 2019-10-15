@@ -55,7 +55,7 @@ void fit4BW_Mass_background_noloki()
 	//define relativistic Breit Wigner distribution
 
 	
-	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
+	RooRealVar x("B_DTF_M", "B_DTF_M", 4000, 4600, "MeV");
     //ref: page 131 LHCb-ANA-2018-043
     /*
     Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays, 
@@ -105,11 +105,11 @@ void fit4BW_Mass_background_noloki()
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
-	ds->plotOn(xframe);
+	ds->plotOn(xframe, Binning(20));
 	background.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
 
-        
+    
     TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
 
     xframe->Draw() ;
@@ -127,4 +127,10 @@ void fit4BW_Mass_background_noloki()
     //x3.Print();
     result->Print("v");
     
+    // Access list of final fit parameter values
+    cout << "final value of floating parameters" << endl ;
+    result->floatParsFinal().Print("s");
+    ds->Print();
+
+
 }
