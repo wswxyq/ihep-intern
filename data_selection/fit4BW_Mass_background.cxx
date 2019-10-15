@@ -12,6 +12,7 @@
 #include<TCanvas.h>
 #include<RooPlot.h>
 #include<TMath.h>
+#include<RooFitResult.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
@@ -51,28 +52,18 @@ void fit4BW_Mass_background()
 
     h10->Draw("E");
 	*/
-	//define relativistic Breit Wigner distribution
 
 	
 	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
-    //ref: page 131 LHCb-ANA-2018-043
-    /*
-    Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays, 
-    and observation of two-peak structure of
-    the Pc(4450)+
-    */
 
-    RooRealVar M4312("M4312", "M4312", 4312.0);
-    RooRealVar M4440("M4440", "M4440", 4440.2);
-    RooRealVar M4457("M4457", "M4457", 4456.6);
-    RooRealVar Mx("Mx", "Mx", 4394.7);
 
     RooRealVar x1("x1", "para1", 74.3657, -100, 100);
 	RooRealVar x2("x2", "para2", -6.47583e-05, -100, 100);
 	RooRealVar x3("x3", "para3", -3.33708e-06, -10, 10);
 	RooRealVar x4("x4", "para4", 0.48, -10., 10.);
 	RooRealVar x5("x5", "para5", 0.48, -10., 10.);
-
+    
+    /*
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
     RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
@@ -90,9 +81,11 @@ void fit4BW_Mass_background()
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
+    */
+
     RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3));
 
-    RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
+    //RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
 
 
 
@@ -113,17 +106,11 @@ void fit4BW_Mass_background()
     xframe->Draw() ;
     c->Print("./fit_background.pdf");
 
-	std::ofstream myfile;
-    myfile.open ("./fit_background.txt");
-	myfile<<"number of entries in dataset: "<<ds->numEntries()<<endl;
-	myfile<<"x1: "<<x1.getVal()<<endl;
-	myfile<<"x2: "<<x2.getVal()<<endl;
-	myfile<<"x3: "<<x3.getVal()<<endl;
-    myfile.close();
-    x1.Print();
-    x2.Print();
-    x3.Print();
     result->Print("v");
+
+    // Access list of final fit parameter values
+    cout << "final value of floating parameters" << endl ;
+    result->floatParsFinal().Print("s");
 
     
 }
