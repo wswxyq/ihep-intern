@@ -51,8 +51,8 @@ void fit4BW_Mass_background_noloki()
     RooRealVar mean2("mean2", "mean2", 4.500e+03, 4450, 4600);
 
     RooRealVar gauss_frac("gauss_frac", "gauss_frac", 7.8629e-01, 0., 1.);
-    RooRealVar gauss_frac1("gauss_frac", "gauss_frac", 0.1, 0., 0.5);
-    RooRealVar gauss_frac2("gauss_frac", "gauss_frac", 0.1, 0., 0.5);
+    RooRealVar gauss_frac1("gauss_frac1", "gauss_frac1", 0.1, 0., 0.5);
+    RooRealVar gauss_frac2("gauss_frac2", "gauss_frac2", 0.1, 0., 0.5);
 
 
     RooPolynomial poly("poly", "poly", x, RooArgList(x1, x2, x3, x4));
@@ -76,7 +76,7 @@ void fit4BW_Mass_background_noloki()
 	xframe_2->SetYTitle("pull distribution");
 
 	ds->plotOn(xframe);
-	background.plotOn(xframe) ;
+	background.plotOn(xframe);
 	RooHist* hpull = xframe->pullHist() ;
     background.plotOn(xframe, Components(gauss),LineColor(kRed),LineStyle(kDashed));
     background.plotOn(xframe, Components(gauss1),LineColor(kGreen),LineStyle(kDashed));
