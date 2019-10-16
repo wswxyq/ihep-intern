@@ -62,15 +62,24 @@ void fit4BW_Mass_background_noloki()
     auto result= background.fitTo(*dh, RooFit::NumCPU(60), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
+	RooPlot* xframe_2 = x.frame(Title(" ")) ;
+
+	xframe_2->SetYTitle("pull distribution");
 
 	ds->plotOn(xframe);
 	background.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
 
+    xframe_2->addPlotable(hpull, "P") ;
     
-    TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
-
+    TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 1000) ;
+	c->Divide(1,2) ;
+    c->cd(1);
     xframe->Draw() ;
+    c->cd(2);
+	xframe_2->Draw() ;
+
+
     c->Print("./fit_background_noloki.pdf");
 
 	std::ofstream myfile;

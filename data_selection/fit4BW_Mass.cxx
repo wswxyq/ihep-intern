@@ -13,6 +13,7 @@
 #include<TCanvas.h>
 #include<RooPlot.h>
 #include<TMath.h>
+#include<RooFitResult.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
 using namespace RooFit ;
