@@ -8,6 +8,7 @@
 #include<RooPolynomial.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
+#include<RooDataHist.h>
 #include<RooHist.h>
 #include<TCanvas.h>
 #include<RooPlot.h>
@@ -100,12 +101,14 @@ void fit4BW_Mass_background_noloki()
 
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
 		                Cut(""));
+    RooDataHist *dh=ds->binnedClone("dh", "dh");
+                    
 
-    auto result= background.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
+    auto result= background.fitTo(*dh, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
 	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
-	ds->plotOn(xframe, Binning(20));
+	ds->plotOn(xframe);
 	background.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
 
