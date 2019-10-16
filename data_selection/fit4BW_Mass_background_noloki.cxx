@@ -69,12 +69,12 @@ void fit4BW_Mass_background_noloki()
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
 
-    RooRealVar x1("x1", "para1", 3.17395e+01, -100., 100.);
-	RooRealVar x2("x2", "para2", 1.21695e-02, -1., 1.);
-	RooRealVar x3("x3", "para3", -4.02805e-06, -1., 1.);
-	RooRealVar x4("x4", "para4", 1.e-09, -1., 1.);
-	RooRealVar x5("x5", "para5", 1.e-012, -1., 1.);
-	RooRealVar x6("x6", "para6", 1.e-015, -1., 1.);
+    RooRealVar x1("x1", "para1", 3.17395e+01, -1.e6, 1.e6);
+	RooRealVar x2("x2", "para2", 1.21695e-02, -1.e6, 1.e6);
+	RooRealVar x3("x3", "para3", -4.02805e-06, -1.e6, 1.e6);
+	RooRealVar x4("x4", "para4", 1.e-09, -1.e6, 1.e6);
+	RooRealVar x5("x5", "para5", 1.e-012, -1.e6, 1.e6);
+	RooRealVar x6("x6", "para6", 1.e-015, -1.e6, 1.e6);
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
