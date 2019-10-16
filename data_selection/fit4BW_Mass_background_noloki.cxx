@@ -44,15 +44,24 @@ void fit4BW_Mass_background_noloki()
 
 
     RooRealVar sigma("sigma", "sigma", 200, 0, 400);
+    RooRealVar sigma1("sigma1", "sigma1", 100, 0, 200);
+    RooRealVar sigma2("sigma2", "sigma2", 150, 0, 200);
     RooRealVar mean("mean", "mean", 4.2000e+03, 4150, 4250);
+    RooRealVar mean1("mean1", "mean1", 4.220e+03, 4150, 4300);
+    RooRealVar mean2("mean2", "mean2", 4.500e+03, 4450, 4600);
 
     RooRealVar gauss_frac("gauss_frac", "gauss_frac", 7.8629e-01, 0., 1.);
+    RooRealVar gauss_frac1("gauss_frac", "gauss_frac", 0.1, 0., 0.5);
+    RooRealVar gauss_frac2("gauss_frac", "gauss_frac", 0.1, 0., 0.5);
 
 
     RooPolynomial poly("poly", "poly", x, RooArgList(x1, x2, x3, x4));
     RooGaussian gauss("gauss", "gauss", x, mean, sigma);
+    RooGaussian gauss1("gauss1", "gauss1", x, mean1, sigma1);
+    RooGaussian gauss2("gauss2", "gauss2", x, mean2, sigma2);
 
-    RooAddPdf background("background", "background", RooArgList(gauss, poly), RooArgList(gauss_frac));
+    RooAddPdf background("background", "background", RooArgList(gauss, gauss1, gauss2, poly), 
+                RooArgList(gauss_frac, gauss_frac1, gauss_frac2));
 
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
 		                Cut(""));
@@ -69,6 +78,10 @@ void fit4BW_Mass_background_noloki()
 	ds->plotOn(xframe);
 	background.plotOn(xframe) ;
 	RooHist* hpull = xframe->pullHist() ;
+    background.plotOn(xframe, Components(gauss),LineColor(kRed),LineStyle(kDashed));
+    background.plotOn(xframe, Components(gauss1),LineColor(kGreen),LineStyle(kDashed));
+    background.plotOn(xframe, Components(gauss2),LineColor(kYellow),LineStyle(kDashed));
+    background.plotOn(xframe, Components(poly),LineColor(kOrange),LineStyle(kDashed));
 
     xframe_2->addPlotable(hpull, "P") ;
     
