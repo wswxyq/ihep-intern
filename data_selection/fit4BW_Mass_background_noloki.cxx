@@ -6,6 +6,7 @@
 #include<TH1F.h>
 #include<RooRealVar.h>
 #include<RooPolynomial.h>
+#include<RooGaussian.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
 #include<RooDataHist.h>
@@ -22,47 +23,20 @@ using namespace RooFit ;
 void fit4BW_Mass_background_noloki()
 {
 
-    TProof::Open("");
+    //TProof::Open("");
 
 	//set chain
     TChain *chain = new TChain("ReducedTree");
 	//load file
     chain->Add("/scratchfs/others/wusw/BDT_reduced_noloki.root");
-    chain->SetProof();
+    //chain->SetProof();
  
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_LOKI_FDS("B_LOKI_FDS", "B_LOKI_FDS", -RooNumber::infinity(), RooNumber::infinity());
 
-
-
-	/*
-    //...mass range
-    const Double_t MassMin = 4000;
-    const Double_t MassMax = 6000;
-    const Int_t BinNum = 200;
-
-    //...mass resolution
-    const Double_t MsigmaAve = 3. ;
-    const Double_t MsigmaMin = -10. ;
-    const Double_t MsigmaMax = 300. ;
-
-    TH1F *h10 = new TH1F("h10", "M(J/#psip)", BinNum, MassMin, MassMax);
-
-    chain->Project("h10", "B_DTF_M", totCuts );
-
-    h10->Draw("E");
-	*/
-	//define relativistic Breit Wigner distribution
-
-	
 	RooRealVar x("B_DTF_M", "B_DTF_M", 4150, 4600, "MeV");
-    //ref: page 131 LHCb-ANA-2018-043
-    /*
-    Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays, 
-    and observation of two-peak structure of
-    the Pc(4450)+
-    */
+
 
     RooRealVar M4312("M4312", "M4312", 4312.0);
     RooRealVar M4440("M4440", "M4440", 4440.2);
@@ -76,26 +50,16 @@ void fit4BW_Mass_background_noloki()
 	RooRealVar x5("x5", "para5", 1.e-012, -1.e6, 1.e6);
 	RooRealVar x6("x6", "para6", 1.e-015, -1.e6, 1.e6);
 
-    RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
-    RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
-    RooRealVar gamma4457("gamma4457", "gamma4457", 5.5);
-    RooRealVar gammax("gammax", "gammax", 62.7);
+    RooRealVar sigma("sigma", "sigma", 200, 0, 1000);
+    RooRealVar mean("mean", "mean", 4200, 4150, 4300);
 
-    RelativisticBW_wsw rtbw4312("rtbw4312", "rtbw4312", x, M4312, gamma4312);
-    RelativisticBW_wsw rtbw4440("rtbw4440", "rtbw4440", x, M4440, gamma4440);
-    RelativisticBW_wsw rtbw4457("rtbw4457", "rtbw4457", x, M4457, gamma4457);
-    RelativisticBW_wsw rtbwx("rtbwx", "rtbwx", x, Mx, gammax);
+    RooRealVar gauss_frac("gauss_frac", "gauss_frac", 0.2, 0., 1.);
 
-    RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
-    RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
-    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
-    RooRealVar signal_frac("signal_frac", "signal_frac", 0.1, 0., 1.);
 
-    RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
-                        RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
-    RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3, x4, x5));
+    RooPolynomial poly("poly", "poly", x, RooArgList(x1, x2, x3, x4, x5));
+    RooGaussian gauss("gauss", "gauss", x, mean, sigma);
 
-    //RooAddPdf event("event", "event", RooArgList(signal, background), RooArgList(signal_frac));
+    RooAddPdf background("background", "background", RooArgList(gauss, poly), RooArgList(gauss_frac));
 
 
 
