@@ -37,8 +37,8 @@ void fit4BW_Mass_background_noloki()
 
 	RooRealVar x("B_DTF_M", "B_DTF_M", 4150, 4600, "MeV");
 
-    RooRealVar x1("x1", "para1", 3.1740e+01, 1.e+01, 5.e+01);
-	RooRealVar x2("x2", "para2", 1.2170e-02, -1.e0, 1.e0);
+    RooRealVar x1("x1", "para1", 3.1740e+01, -1.e2, 1.e2);
+	RooRealVar x2("x2", "para2", 1.2170e-02, -1.e2, 1.e2);
 	RooRealVar x3("x3", "para3", -4.02805e-06, -1.e-01, 1.e-01);
 	RooRealVar x4("x4", "para4", 1.1642e-09, -1.e-6, 1.e-6);
 
