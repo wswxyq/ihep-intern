@@ -16,7 +16,7 @@
 #include<RooFitResult.h>
 #include "../RooClassFactory/RelativisticBW/RelativisticBW_wsw.cxx"
 using namespace std;
-using namespace RooFit ;
+using namespace RooFit;
 
 
 void fit4BW_Mass()
