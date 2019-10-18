@@ -9,7 +9,7 @@
 using namespace std;
 void Cal_CLs(){
     //Open the ROOT file
-    TFile* f = TFile::Open("CLs_new.root") ;
+    TFile* f = TFile::Open("CLs_workspace.root") ;
     cout<<"Retrieve the workspace"<<endl;
     RooWorkspace* w = (RooWorkspace*) f->Get("w") ;
     w->Print();
