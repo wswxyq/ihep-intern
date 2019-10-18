@@ -6,3 +6,4 @@ note/*.gz
 .vscode/
 cls/*.root
 cls/*.pdf
+simpleCLs/*.pdf

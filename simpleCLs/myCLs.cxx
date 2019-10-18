@@ -68,9 +68,10 @@ void myCLs() {
     RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
     RooRealVar signal_frac("signal_frac", "signal_frac", 0.1, 0., 1.);
     //polynimial parameter
-    RooRealVar x1("x1", "para1", 74.3657, -80, 180);
-	RooRealVar x2("x2", "para2", -6.47583e-05, -10.e-05, -4.e-05);
-	RooRealVar x3("x3", "para3", -3.33708e-06, -10.e-06, 2.0e-06);
+    //fit parameter first//////////////////////////
+    RooRealVar x1("x1", "para1", 74.3657);
+	RooRealVar x2("x2", "para2", -6.47583e-05);
+	RooRealVar x3("x3", "para3", -3.33708e-06);
 
     RooAddPdf smodel("smodel", "smodel", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
@@ -82,8 +83,8 @@ void myCLs() {
     RooRealVar b("b", "b", 0, 4658, 4658);
 
     w->import(model);
-    w->import(s);
-    w->defineSet("poi", "s");
+    //w->import(s);
+    w->defineSet("poi", "signal_frac");
     w->Print();
 
 
@@ -114,18 +115,18 @@ void myCLs() {
     b_modelNM.SetPdf(*w->pdf("model"));
     b_modelNM.SetObservables(*w->set("B_DTF_M"));
     b_modelNM.SetParametersOfInterest(*w->set("poi"));
-    w->var("s")->setVal(0.0);
+    w->var("signal_frac")->setVal(0.0);
     b_modelNM.SetSnapshot(*w->set("poi"));     // sets up b hypothesis as s = 0
 
     
     // ---------------------create the alternate (s+b) ModelConfig with given value of s-----------------------
-    double s_value = 4.;
+    double s_value = 0.001;
     ModelConfig sb_modelNM("S+B_modelNM", w);
     sb_modelNM.SetPdf(*w->pdf("model"));
     sb_modelNM.SetObservables(*w->set("B_DTF_M"));
     sb_modelNM.SetParametersOfInterest(*w->set("poi"));
     RooRealVar* poi = (RooRealVar*) sb_modelNM.GetParametersOfInterest()->first();
-    w->var("s")->setVal(s_value);
+    w->var("signal_frac")->setVal(s_value);
     sb_modelNM.SetSnapshot(*w->set("poi"));  // set up sb hypothesis with given s
 
     
@@ -142,8 +143,8 @@ void myCLs() {
     b_modelNM.Print();
     sb_modelNM.Print();
 
-    /*
-    // Get the result and compute CLs
+    
+    // =========================Get the result and compute CLs=============================
     HypoTestResult* result = hc.GetHypoTest();
     result->SetPValueIsRightTail(true);
     double psb = result->NullPValue();
@@ -167,9 +168,10 @@ void myCLs() {
     HypoTestPlot* plot = new HypoTestPlot(*result, 80);
     plot->Draw();
     c1->SaveAs("myCLs.pdf");
-
+    
     // Now compute using asymptotic formula; b is alt, sb is null
-    AsymptoticCalculator ac(*dataNM, b_modelNM, sb_modelNM);
+    /*
+    AsymptoticCalculator ac(*ds, b_modelNM, sb_modelNM);
     ac.SetOneSided(false);     // KLUDGE -- should want one sided (true) for limit
     AsymptoticCalculator::SetPrintLevel(-1);
     HypoTestResult* asympResult = ac.GetHypoTest();
@@ -190,9 +192,11 @@ void myCLs() {
     }
     cout << "cls = " << asymp_cls << endl;
     cout << endl;
+    */
 
+    
     // create hypotest inverter passing the desired calculator (hc or ac)
-    HypoTestInverter calc(ac);
+    HypoTestInverter calc(hc);
     calc.SetVerbose(false);
     calc.SetConfidenceLevel(0.95);
     bool useCLs = true;
@@ -227,5 +231,5 @@ void myCLs() {
     c2->SetLogy(false);
     plot2->Draw("2CL");
     c2->SaveAs("myCLsLimit.pdf");
-    */
+    
 }
