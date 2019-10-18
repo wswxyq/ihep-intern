@@ -66,7 +66,7 @@ void myCLs() {
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
     RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
-    RooRealVar signal_frac("signal_frac", "signal_frac", 0.1, 0., 1.);
+    RooRealVar signal_frac("signal_frac", "signal_frac", 0.001, 0., 0.05);
     //polynimial parameter
     //fit parameter first//////////////////////////
     RooRealVar x1("x1", "para1", 74.3657);
