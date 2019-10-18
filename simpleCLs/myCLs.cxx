@@ -66,7 +66,7 @@ void myCLs() {
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
     RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
-    RooRealVar signal_frac("signal_frac", "signal_frac", 0.001, 0., 0.05);
+    RooRealVar signal_frac("signal_frac", "signal_frac", 0.0001, 0., 0.0002);
     //polynimial parameter
     //fit parameter first//////////////////////////
     RooRealVar x1("x1", "para1", 74.3657);
@@ -79,8 +79,8 @@ void myCLs() {
 
     RooAddPdf model("model", "model", RooArgList(smodel, bmodel), RooArgList(signal_frac));
 
-    RooRealVar s("s", "s", 0, 0, 4658);
-    RooRealVar b("b", "b", 0, 4658, 4658);
+    //RooRealVar s("s", "s", 0, 0, 4658);
+    //RooRealVar b("b", "b", 0, 4658, 4658);
 
     w->import(model);
     //w->import(s);
@@ -89,7 +89,7 @@ void myCLs() {
 
 
     
-    // ---------------------create a toy dataset with the observed data values n and m --------------------------
+    cout<<"========== create a toy dataset with the observed data values n and m =========="<<endl;
     //double n = 120.;
     //double m = 100.;
     //w->defineSet("obsNM","n,m");   
@@ -110,7 +110,7 @@ void myCLs() {
 
 
     
-    // ---------------------now we need new model configs, with PDF="model"------------------------------------
+    cout<<"========== now we need new model configs, with PDF=\"model\"=========="<<endl;
     ModelConfig b_modelNM("B_modelNM", w);
     b_modelNM.SetPdf(*w->pdf("model"));
     b_modelNM.SetObservables(*w->set("B_DTF_M"));
@@ -119,7 +119,7 @@ void myCLs() {
     b_modelNM.SetSnapshot(*w->set("poi"));     // sets up b hypothesis as s = 0
 
     
-    // ---------------------create the alternate (s+b) ModelConfig with given value of s-----------------------
+    cout<<"========== create the alternate (s+b) ModelConfig with given value of s =========="<<endl;
     double s_value = 0.001;
     ModelConfig sb_modelNM("S+B_modelNM", w);
     sb_modelNM.SetPdf(*w->pdf("model"));
@@ -130,10 +130,10 @@ void myCLs() {
     sb_modelNM.SetSnapshot(*w->set("poi"));  // set up sb hypothesis with given s
 
     
-    // test statistic \lambda(s) = -log L(s,\hat\hat{b})/L(\hat{s},\hat{b})
+    cout<<"==========  test statistic \\lambda(s) = -log L(s,\\hat\\hat{b})/L(\\hat{s},\\hat{b})=========="<<endl;
     ProfileLikelihoodTestStat profll(*sb_modelNM.GetPdf());
     
-    // Set up Hybrid Calculator; b is alternate, sb is null
+    cout<<"========== Set up Hybrid Calculator; b is alternate, sb is null =========="<<endl;
     HybridCalculator hc(*ds, b_modelNM, sb_modelNM);
     ToyMCSampler* toymcs = (ToyMCSampler*)hc.GetTestStatSampler();
     toymcs->SetNEventsPerToy(1);
@@ -144,7 +144,7 @@ void myCLs() {
     sb_modelNM.Print();
 
     
-    // =========================Get the result and compute CLs=============================
+    cout<<"========== Get the result and compute CLs =========="<<endl;
     HypoTestResult* result = hc.GetHypoTest();
     result->SetPValueIsRightTail(true);
     double psb = result->NullPValue();
@@ -162,7 +162,7 @@ void myCLs() {
     
     
 
-    // Make a plot
+    cout<<"========== Make a plot =========="<<endl;
     c1->SetLogy();
     result->SetPValueIsRightTail(true);
     HypoTestPlot* plot = new HypoTestPlot(*result, 80);
@@ -195,7 +195,7 @@ void myCLs() {
     */
 
     
-    // create hypotest inverter passing the desired calculator (hc or ac)
+    cout<<"========== create hypotest inverter passing the desired calculator (hc or ac) =========="<<endl;
     HypoTestInverter calc(hc);
     calc.SetVerbose(false);
     calc.SetConfidenceLevel(0.95);
@@ -217,14 +217,14 @@ void myCLs() {
     cout << "The computed upper limit is: " << upperLimit 
         << " +/- " << ulError << endl;
 
-    // compute expected limit
+    cout<<"========== compute expected limit =========="<<endl;
     cout << "Expected upper limits using b-only model : " << endl;
     cout << "median limit = " << r->GetExpectedUpperLimit(0) << endl;
     cout << "med. limit (-1 sig) " << r->GetExpectedUpperLimit(-1) << endl;
     cout << "med. limit (+1 sig) " << r->GetExpectedUpperLimit(1) << endl;
     cout << endl;
 
-    // plot result of the scan 
+    cout<<"========== plot result of the scan =========="<<endl;
     HypoTestInverterPlot* plot2 = 
         new HypoTestInverterPlot("HTI_Result_Plot", "CLs upper limit", r);
     TCanvas* c2 = new TCanvas("HypoTestInverter Scan"); 
