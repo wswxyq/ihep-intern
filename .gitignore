@@ -5,3 +5,4 @@ note/*.gz
 ./*/nohup.out
 .vscode/
 cls/*.root
+cls/*.pdf

@@ -87,8 +87,8 @@ void configWS(){
     RooBreitWigner rtbwx("rtbwx", "rtbwx", B_DTF_M, Mx, gammax);
     */
     RooGenericPdf rtbw4312("rtbw4312", "14.0*gamma4312*gamma4312*M4312*M4312/(22.0*(B_DTF_M*B_DTF_M-M4312*M4312)*(B_DTF_M*B_DTF_M-M4312*M4312)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(gamma4312*gamma4312)/(M4312*M4312))", RooArgList(B_DTF_M, M4312, gamma4312));
-    RooGenericPdf rtbw4440("rtbw4312", "14.0*gamma4440*gamma4440*M4440*M4440/(22.0*(B_DTF_M*B_DTF_M-M4440*M4440)*(B_DTF_M*B_DTF_M-M4440*M4440)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(gamma4440*gamma4440)/(M4440*M4440))", RooArgList(B_DTF_M, M4440, gamma4440));
-    RooGenericPdf rtbw4457("rtbw4312", "14.0*gamma4457*gamma4457*M4457*M4457/(22.0*(B_DTF_M*B_DTF_M-M4457*M4457)*(B_DTF_M*B_DTF_M-M4457*M4457)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(gamma4457*gamma4457)/(M4457*M4457))", RooArgList(B_DTF_M, M4457, gamma4457));    
+    RooGenericPdf rtbw4440("rtbw4440", "14.0*gamma4440*gamma4440*M4440*M4440/(22.0*(B_DTF_M*B_DTF_M-M4440*M4440)*(B_DTF_M*B_DTF_M-M4440*M4440)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(gamma4440*gamma4440)/(M4440*M4440))", RooArgList(B_DTF_M, M4440, gamma4440));
+    RooGenericPdf rtbw4457("rtbw4457", "14.0*gamma4457*gamma4457*M4457*M4457/(22.0*(B_DTF_M*B_DTF_M-M4457*M4457)*(B_DTF_M*B_DTF_M-M4457*M4457)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(gamma4457*gamma4457)/(M4457*M4457))", RooArgList(B_DTF_M, M4457, gamma4457));    
     RooGenericPdf rtbwx("rtbwx", "14.0*gammax*gammax*Mx*Mx/(22.0*(B_DTF_M*B_DTF_M-Mx*Mx)*(B_DTF_M*B_DTF_M-Mx*Mx)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(gammax*gammax)/(Mx*Mx))", RooArgList(B_DTF_M, Mx, gammax));
 
     //fraction of b-w
