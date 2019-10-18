@@ -9,7 +9,7 @@
 using namespace std;
 void Cal_CLs_modified(){
     //Open the ROOT file
-    TFile* f = TFile::Open("CLs_new.root") ;
+    TFile* f = TFile::Open("CLs_workspace.root") ;
     cout<<"Retrieve the workspace"<<endl;
     RooWorkspace* w = (RooWorkspace*) f->Get("w") ;
     w->Print();
@@ -18,13 +18,13 @@ void Cal_CLs_modified(){
     RooAbsData* data = w->data("obsData") ;
     RooStats::ModelConfig* sbModel = (RooStats::ModelConfig*) w->obj("model") ;
     cout<<"Construct a ModelConfig for the B-only hypothesis"<<endl;
-    RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) sbModel->Clone("BonlyModel") ;
-    //RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) w->obj("bmodel") ;
+    //RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) sbModel->Clone("bmodel") ;
+    RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) w->obj("bmodel") ;
     cout<<"Set value POI parameter to zero"<<endl;
-    RooRealVar* poi = (RooRealVar*) bModel->GetParametersOfInterest()->first();
-    poi-> setVal(0) ;
+    //RooRealVar* poi = (RooRealVar*) bModel->GetParametersOfInterest()->first();
+    //poi-> setVal(0) ;
     cout<<"Configure bModel to encode current poi=0 scenario as its hypothesis"<<endl;
-    bModel->SetSnapshot( *poi  );
+    //bModel->SetSnapshot( *poi  );
     cout<<"Construct an hypothesis p-value calculator"<<endl;
     RooStats::AsymptoticCalculator  asympCalc(*data, *bModel, *sbModel);
     cout<<"Configure calculator for a limit (=one-sided interval)"<<endl;
