@@ -7,7 +7,7 @@
 #include "RooStats/HypoTestInverterPlot.h"
 #include "TCanvas.h"
 using namespace std;
-void Cal_CLs(){
+void Cal_CLs_modified(){
     //Open the ROOT file
     TFile* f = TFile::Open("CLs_new.root") ;
     cout<<"Retrieve the workspace"<<endl;
@@ -18,7 +18,7 @@ void Cal_CLs(){
     RooAbsData* data = w->data("obsData") ;
     RooStats::ModelConfig* sbModel = (RooStats::ModelConfig*) w->obj("model") ;
     cout<<"Construct a ModelConfig for the B-only hypothesis"<<endl;
-    RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) sbModel->Clone() ;
+    RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) sbModel->Clone("BonlyModel") ;
     //RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) w->obj("bmodel") ;
     cout<<"Set value POI parameter to zero"<<endl;
     RooRealVar* poi = (RooRealVar*) bModel->GetParametersOfInterest()->first();
