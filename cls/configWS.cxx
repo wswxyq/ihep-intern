@@ -139,7 +139,7 @@ void configWS(){
     w.import(binData);
 
     // write workspace in the file 
-    w.writeToFile("CLs_new.root");
+    w.writeToFile("CLs_workspace.root");
 
 
 }
