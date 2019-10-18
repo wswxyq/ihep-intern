@@ -18,7 +18,7 @@ void Cal_CLs(){
     RooAbsData* data = w->data("obsData") ;
     RooStats::ModelConfig* sbModel = (RooStats::ModelConfig*) w->obj("model") ;
     cout<<"Construct a ModelConfig for the B-only hypothesis"<<endl;
-    RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) sbModel->Clone() ;
+    RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) sbModel->Clone("bmodel") ;
     //RooStats::ModelConfig* bModel = (RooStats::ModelConfig*) w->obj("bmodel") ;
     cout<<"Set value POI parameter to zero"<<endl;
     RooRealVar* poi = (RooRealVar*) bModel->GetParametersOfInterest()->first();
