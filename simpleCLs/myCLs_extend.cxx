@@ -63,16 +63,16 @@ void myCLs_extend() {
     RooGenericPdf rtbw4457("rtbw4457", "14.0*5.5*5.5*4456.6*4456.6/(22.0*(B_DTF_M*B_DTF_M-4456.6*4456.6)*(B_DTF_M*B_DTF_M-4456.6*4456.6)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.5*5.5)/(4456.6*4456.6))", RooArgList(B_DTF_M));    
     RooGenericPdf rtbwx("rtbwx", "14.0*62.7*62.7*4394.7*4394.7/(22.0*(B_DTF_M*B_DTF_M-4394.7*4394.7)*(B_DTF_M*B_DTF_M-4394.7*4394.7)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(62.7*62.7)/(4394.7*4394.7))", RooArgList(B_DTF_M));
     //fraction of b-w
-    RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 0.1, 0., 1.);
-    RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
-    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
-    RooRealVar signal_frac("signal_frac", "signal_frac", 0, 0, 10);
-    RooRealVar background_frac("background_frac", "background_frac", 0, 4658, 4658);
+    RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 8.8406e-03, 0., 1.);
+    RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 8.4540e-01, 0., 1.);
+    RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 2.1666e-04, 0., 1.);
+    RooRealVar signal_frac("signal_frac", "signal_frac", 2.1983e+00, 0, 100);
+    RooRealVar background_frac("background_frac", "background_frac", 2.4580e+03, 2000., 3000.);
     //polynimial parameter
     //fit parameter first//////////////////////////
-    RooRealVar x1("x1", "para1", 74.3657);
-	RooRealVar x2("x2", "para2", -6.47583e-05);
-	RooRealVar x3("x3", "para3", -3.33708e-06);
+    RooRealVar x1("x1", "para1", 7.3718e+01);
+	RooRealVar x2("x2", "para2", -1.0000e-04);
+	RooRealVar x3("x3", "para3", -3.3642e-06);
 
     RooAddPdf smodel("smodel", "smodel", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
@@ -234,3 +234,5 @@ void myCLs_extend() {
     c2->SaveAs("myCLs_extendLimit.pdf");
     
 }
+
+
