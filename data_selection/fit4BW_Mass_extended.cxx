@@ -87,8 +87,8 @@ void fit4BW_Mass_extended()
     RooRealVar signal_frac_4440("signal_frac_4440", "signal_frac_4440", 0.1, 0., 1.);
     RooRealVar signal_frac_4457("signal_frac_4457", "signal_frac_4457", 0.1, 0., 1.);
 
-    RooRealVar signal_num("signal_num", "signal_num", 0.1, 0., 1.);
-    RooRealVar background_num("background_num", "background_num", 0.1, 0., 1.);
+    RooRealVar signal_num("signal_num", "signal_num", 0.1, 0., 10.);
+    RooRealVar background_num("background_num", "background_num", 2458., 0., 3000.);
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
