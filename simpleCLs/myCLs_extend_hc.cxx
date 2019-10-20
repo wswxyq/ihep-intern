@@ -2,7 +2,7 @@
 //  Glen Cowan, RHUL Physics, July 2013.
 //  Shaowei Wu, modified on Oct 20, 2019
 //  Based on part 6 of roostats macro HybridInstructional.C
-//  To run, at the root prompt type: .x myCLs_extend.C
+//  To run, at the root prompt type: .x myCLs_extend_hc.C
 
 #include <RooGlobalFunc.h>
 #include <RooRealVar.h>
@@ -39,16 +39,16 @@ using namespace RooFit;
 using namespace RooStats;
 using namespace std;
 
-void myCLs_extend();
+void myCLs_extend_hc();
 
 int main() {
 
-    myCLs_extend();
+    myCLs_extend_hc();
     return 0;
 
 }
 
-void myCLs_extend() {
+void myCLs_extend_hc() {
 
     TCanvas* c1 = new TCanvas;
 
@@ -170,7 +170,7 @@ void myCLs_extend() {
     result->SetPValueIsRightTail(true);
     HypoTestPlot* plot = new HypoTestPlot(*result, 80);
     plot->Draw();
-    c1->SaveAs("myCLs_extend.pdf");
+    c1->SaveAs("myCLs_extend_hc.pdf");
     
     cout<<"========== Now compute using asymptotic formula; b is alt, sb is null =========="<<endl;
     
@@ -199,7 +199,7 @@ void myCLs_extend() {
 
     
     cout<<"========== create hypotest inverter passing the desired calculator (hc or ac) =========="<<endl;
-    HypoTestInverter calc(ac);
+    HypoTestInverter calc(hc);
     calc.SetVerbose(false);
     calc.SetConfidenceLevel(0.95);
     bool useCLs = true;
@@ -233,7 +233,7 @@ void myCLs_extend() {
     TCanvas* c2 = new TCanvas("HypoTestInverter Scan"); 
     c2->SetLogy(false);
     plot2->Draw("2CL");
-    c2->SaveAs("myCLs_extendLimit.pdf");
+    c2->SaveAs("myCLs_extend_hcLimit.pdf");
     
 }
 
