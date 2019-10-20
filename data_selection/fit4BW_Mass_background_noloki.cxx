@@ -6,6 +6,7 @@
 #include<TH1F.h>
 #include<RooRealVar.h>
 #include<RooPolynomial.h>
+#include<RooCBShape.h>
 #include<RooGaussian.h>
 #include<RooAddPdf.h>
 #include<RooDataSet.h>
@@ -46,9 +47,12 @@ void fit4BW_Mass_background_noloki()
     RooRealVar sigma("sigma", "sigma", 200, 0, 400);
     RooRealVar sigma1("sigma1", "sigma1", 100, 0, 200);
     RooRealVar sigma2("sigma2", "sigma2", 150, 0, 200);
-    RooRealVar mean("mean", "mean", 4.2000e+03, 4150, 4250);
+    RooRealVar mean("mean", "mean", 4.2000e+03, 4150, 4350);
     RooRealVar mean1("mean1", "mean1", 4.220e+03, 4150, 4300);
     RooRealVar mean2("mean2", "mean2", 4.500e+03, 4450, 4600);
+
+    RooRealVar alpha("alpha", "alpha", 1., 0.1, 10.);
+    RooRealVar n("n", "n", 1);
 
     RooRealVar gauss_frac("gauss_frac", "gauss_frac", 7.8629e-01, 0., 1.);
     RooRealVar gauss_frac1("gauss_frac1", "gauss_frac1", 0.1, 0., 0.5);
@@ -56,7 +60,7 @@ void fit4BW_Mass_background_noloki()
 
 
     RooPolynomial poly("poly", "poly", x, RooArgList(x1, x2, x3, x4));
-    RooGaussian gauss("gauss", "gauss", x, mean, sigma);
+    RooCBShape gauss("gauss", "gauss", x, mean, sigma, alpha, n);
     RooGaussian gauss1("gauss1", "gauss1", x, mean1, sigma1);
     RooGaussian gauss2("gauss2", "gauss2", x, mean2, sigma2);
 
