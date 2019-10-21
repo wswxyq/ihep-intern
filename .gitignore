@@ -7,3 +7,7 @@ note/*.gz
 cls/*.root
 cls/*.pdf
 simpleCLs/*.pdf
+complexCLs/*.root
+complexCLs/*.pdf
+complexCLs/*.log
+

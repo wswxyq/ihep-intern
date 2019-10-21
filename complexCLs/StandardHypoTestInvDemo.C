@@ -528,6 +528,11 @@ void RooStats::HypoTestInvTool::AnalyzeResult(HypoTestInverterResult *r, int cal
       }
    }
    gPad = c1;
+   //shaowei added:
+   c1->SaveAs("CLsLimit.pdf");
+
+
+
 }
 
 // internal routine to run the inverter
