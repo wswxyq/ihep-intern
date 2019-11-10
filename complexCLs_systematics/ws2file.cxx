@@ -7,6 +7,7 @@
 #include <RooGlobalFunc.h>
 #include <RooRealVar.h>
 #include <RooPolynomial.h>
+#include <RooGaussian.h>
 #include <RooAddPdf.h>
 #include <RooProdPdf.h>
 #include <RooGenericPdf.h>
@@ -79,18 +80,29 @@ void ws2file() {
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
     RooPolynomial bmodel("bmodel", "bmodel", B_DTF_M, RooArgList(x1, x2, x3));
 
-    RooAddPdf model("model", "model", RooArgList(smodel, bmodel), RooArgList(signal_frac, background_frac));
+    // add constraint of background here.
+    //RooRealVar global_b("global_b", "global_b", 2000, 3000);
+    //RooRealVar sigma_b("sigma_b", "sigma_b", 50);
+    //RooGaussian constr_b("constr_b", "constr_b", global_b, background_frac, sigma_b);
+
+    RooAddPdf model0("model0", "model0", RooArgList(smodel, bmodel), RooArgList(signal_frac, background_frac));
+
+    //RooProdPdf model("model", "model", model0, constr_b);
 
     //RooRealVar s("s", "s", 0, 0, 4658);
     //RooRealVar b("b", "b", 0, 4658, 4658);
 
-    w->import(model);
+    w->import(model0);
+    w->factory( "Gaussian::constr_b(global_b[2000.0,3000.0],background_frac,50)" );
+
+    w->factory("PROD::model(model0,constr_b)");
+
     //w->import(s);
     w->defineSet("poi", "signal_frac");
-    w->defineSet("nuisance", "background_frac");
 
+    //this is necessary for setting global observables
+    w->var("global_b")->setConstant(true);
     w->Print();
-
 
     
     cout<<"========== import a dataset with the observed data values B_DTF_M =========="<<endl;
@@ -105,10 +117,12 @@ void ws2file() {
     //set chain
     TChain *chain = new TChain("ReducedTree");
 	//load file
-    chain->Add("../data_selection/BDT_reduced.root");
+    chain->Add("BDT_reduced.root");
     RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(B_DTF_M), Import(*chain), 
 		            Cut(""));
     w->defineSet("B_DTF_M", "B_DTF_M");
+    w->defineSet("globObs", "global_b");
+    w->defineSet("nuisance", "background_frac");
     w->import(*ds);
     w->Print();
 
@@ -116,6 +130,9 @@ void ws2file() {
     
     cout<<"========== now we need new model configs, with PDF=\"model\"=========="<<endl;
     ModelConfig b_modelNM("B_modelNM", w);
+
+    b_modelNM.SetGlobalObservables(*w->set("globObs"));
+
     b_modelNM.SetPdf(*w->pdf("model"));
     b_modelNM.SetObservables(*w->set("B_DTF_M"));
     b_modelNM.SetParametersOfInterest(*w->set("poi"));
@@ -128,10 +145,14 @@ void ws2file() {
     cout<<"========== create the alternate (s+b) ModelConfig with given value of s =========="<<endl;
     double s_value = 0.001;
     ModelConfig sb_modelNM("S+B_modelNM", w);
+
+    sb_modelNM.SetGlobalObservables(*w->set("globObs"));
+
     sb_modelNM.SetPdf(*w->pdf("model"));
     sb_modelNM.SetObservables(*w->set("B_DTF_M"));
     sb_modelNM.SetParametersOfInterest(*w->set("poi"));
     sb_modelNM.SetNuisanceParameters(*w->set("nuisance"));
+
     RooRealVar* poi = (RooRealVar*) sb_modelNM.GetParametersOfInterest()->first();
     w->var("signal_frac")->setVal(s_value);
     sb_modelNM.SetSnapshot(*w->set("poi"));  // set up sb hypothesis with given s
