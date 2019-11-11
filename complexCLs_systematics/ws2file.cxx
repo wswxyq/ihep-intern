@@ -93,7 +93,7 @@ void ws2file() {
     //RooRealVar b("b", "b", 0, 4658, 4658);
 
     w->import(model0);
-    w->factory( "Gaussian::constr_b(global_b[2000.0,3000.0],background_frac,50)" );
+    w->factory( "Gaussian::constr_b(global_b[2000.0,3000.0],background_frac,20)" );
 
     w->factory("PROD::model(model0,constr_b)");
 

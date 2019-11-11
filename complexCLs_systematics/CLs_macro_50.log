@@ -1,0 +1,227 @@
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.18/04                  https://root.cern |
+  |                               (c) 1995-2019, The ROOT Team |
+  | Built for macosx64 on Sep 11 2019, 15:38:23                |
+  | From tags/v6-18-04@v6-18-04                                |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing CLs_macro.cxx...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+0x7fc4fa043600	ws2file.root
+Running HypoTestInverter on the workspace w
+
+RooWorkspace(w) w contents
+
+variables
+---------
+(B_DTF_M,background_frac,global_b,signal_frac,signal_frac_4312,signal_frac_4440,signal_frac_4457,x1,x2,x3)
+
+p.d.f.s
+-------
+RooPolynomial::bmodel[ x=B_DTF_M coefList=(x1,x2,x3) ] = 35848.2
+RooGaussian::constr_b[ x=global_b mean=background_frac sigma=50 ] = 0.702718
+RooProdPdf::model[ model0 * constr_b ] = 25191.1
+RooAddPdf::model0[ signal_frac * smodel + background_frac * bmodel ] = 35848.2
+RooGenericPdf::rtbw4312[ actualVars=(B_DTF_M) formula="14.0*5.3*5.3*4312.0*4312.0/(22.0*(B_DTF_M*B_DTF_M-4312.0*4312.0)*(B_DTF_M*B_DTF_M-4312.0*4312.0)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.3*5.3)/(4312.0*4312.0))" ] = 0.00056545
+RooGenericPdf::rtbw4400[ actualVars=(B_DTF_M) formula="14.0*25.2*25.2*4440.2*4440.2/(22.0*(B_DTF_M*B_DTF_M-4440.2*4440.2)*(B_DTF_M*B_DTF_M-4440.2*4440.2)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(25.2*25.2)/(4440.2*4440.2))" ] = 0.0628134
+RooGenericPdf::rtbw4457[ actualVars=(B_DTF_M) formula="14.0*5.5*5.5*4456.6*4456.6/(22.0*(B_DTF_M*B_DTF_M-4456.6*4456.6)*(B_DTF_M*B_DTF_M-4456.6*4456.6)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.5*5.5)/(4456.6*4456.6))" ] = 0.00152134
+RooGenericPdf::rtbwx[ actualVars=(B_DTF_M) formula="14.0*62.7*62.7*4394.7*4394.7/(22.0*(B_DTF_M*B_DTF_M-4394.7*4394.7)*(B_DTF_M*B_DTF_M-4394.7*4394.7)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(62.7*62.7)/(4394.7*4394.7))" ] = 8.56598
+RooAddPdf::smodel[ signal_frac_4312 * rtbw4312 + signal_frac_4440 * rtbw4400 + signal_frac_4457 * rtbw4457 + [%] * rtbwx ] = 1.29982
+
+datasets
+--------
+RooDataSet::ds(B_DTF_M)
+
+parameter snapshots
+-------------------
+B_modelNM__snapshot = (signal_frac=0)
+S+B_modelNM__snapshot = (signal_frac=0.001)
+
+named sets
+----------
+B_DTF_M:(B_DTF_M)
+B_modelNM_GlobalObservables:(global_b)
+B_modelNM_NuisParams:(background_frac)
+B_modelNM_Observables:(B_DTF_M)
+B_modelNM_POI:(signal_frac)
+B_modelNM__snapshot:(signal_frac)
+S+B_modelNM_GlobalObservables:(global_b)
+S+B_modelNM_NuisParams:(background_frac)
+S+B_modelNM_Observables:(B_DTF_M)
+S+B_modelNM_POI:(signal_frac)
+S+B_modelNM__snapshot:(signal_frac)
+globObs:(global_b)
+nuisance:(background_frac)
+poi:(signal_frac)
+
+generic objects
+---------------
+RooStats::ModelConfig::B_modelNM
+RooStats::ModelConfig::S+B_modelNM
+
+Using data set ds
+StandardHypoTestInvDemo : POI initial value:   signal_frac = 0.001
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbw4312_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbw4400_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbw4457_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbwx_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_B_DTF_M with 1 entries
+[#1] INFO:Minization --  Including the following contraint terms in minimization: (constr_b)
+[#1] INFO:Fitting -- RooAddition::defaultErrorLevel(nll_model_ds_with_constr) Summation contains a RooNLLVar, using its error level
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbw4312_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbw4400_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbw4457_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(rtbwx_Int[B_DTF_M]) using numeric integrator RooIntegrator1D to calculate Int(B_DTF_M)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (rtbw4312,rtbw4400,rtbw4457,rtbwx,bmodel)
+ **********
+ **    1 **SET PRINT           0
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 background_frac   2.45800e+03  1.00000e+02    2.00000e+03  3.00000e+03
+     2 signal_frac   1.00000e-03  5.00000e-04    0.00000e+00  1.00000e+02
+     3 signal_frac_4312   8.84060e-03  4.42030e-03    0.00000e+00  1.00000e+00
+     4 signal_frac_4440   8.45400e-01  7.73000e-02    0.00000e+00  1.00000e+00
+     5 signal_frac_4457   2.16660e-04  1.08330e-04    0.00000e+00  1.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           0
+ **********
+ **********
+ **    5 **SET STR           0
+ **********
+ **********
+ **    6 **MIGRAD        2500           1
+ **********
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval -- 
+[#0] WARNING:Eval -- RooAddPdf::updateCoefCache(smodel WARNING: sum of PDF coefficients not in range [0-1], value=1.00081[#0] WARNING:Eval --  (no more will be printed)[#0] WARNING:Eval -- 
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-2227.42 FROM MIGRAD    STATUS=CONVERGED      80 CALLS          81 TOTAL
+                     EDM=7.19439e-06    STRATEGY= 0  ERROR MATRIX UNCERTAINTY  22.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  background_frac   2.47817e+03   3.55760e+01  -9.42032e-05  -1.12708e-02
+   2  signal_frac   1.40762e+00   1.15187e+01  -4.64820e-03  -3.91826e-03
+   3  signal_frac_4312   1.99311e-07   7.80214e-01   4.12195e-03** at limit **
+   4  signal_frac_4440   9.99895e-01   5.00840e-01   2.55492e-01  -1.23266e-04
+   5  signal_frac_4457   2.14827e-09   9.64425e-01   5.22726e-04** at limit **
+                               ERR DEF= 0.5
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+StandardHypoTestInvDemo - Best Fit value : signal_frac = 1.40762 +/- 11.5187
+Time for fitting : Real time 0:00:10, CP time 10.560
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+StandardHypoTestInvo: snapshot of S+B Model S+B_modelNM is set to the best fit value
+[#0] PROGRESS:Eval -- AsymptoticCalculator::Initialize....
+[#0] PROGRESS:Eval -- AsymptoticCalculator::Initialize - Find  best unconditional NLL on observed data
+[#0] PROGRESS:Eval -- Best fitted POI value = 1.44657 +/- 11.5187
+[#0] PROGRESS:Eval -- AsymptoticCalculator: Building Asimov data Set
+[#1] INFO:InputArguments -- AsymptoticCalculator: Asimov data will be generated using fitted nuisance parameter values
+[#0] PROGRESS:Eval -- AsymptoticCalculator::Initialize Find  best conditional NLL on ASIMOV data set for given alt POI ( signal_frac ) = 0
+[#1] INFO:InputArguments -- HypoTestInverter ---- Input models: 
+		 using as S+B (null) model     : S+B_modelNM
+		 using as B (alternate) model  : B_modelNM
+
+Doing a fixed scan  in interval : 0 , 100
+[#1] INFO:Eval -- HypoTestInverter::GetInterval - run a fixed scan
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 0
+[#1] INFO:InputArguments -- Minimum of POI is 0 corresponds to alt  snapshot   - using qtilde asymptotic formulae  
+[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 1.44657 muTest = 0
+[#0] PROGRESS:Eval -- P values for  signal_frac =  0
+	CLs      = 1 +/- 0
+	CLb      = 0.5 +/- 0
+	CLsplusb = 0.5 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 11.1111
+[#0] PROGRESS:Eval -- P values for  signal_frac =  11.1111
+	CLs      = 0.524769 +/- 0
+	CLb      = 0.519847 +/- 0
+	CLsplusb = 0.272799 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 22.2222
+[#0] PROGRESS:Eval -- P values for  signal_frac =  22.2222
+	CLs      = 0.227169 +/- 0
+	CLb      = 0.518817 +/- 0
+	CLsplusb = 0.117859 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 33.3333
+[#0] PROGRESS:Eval -- P values for  signal_frac =  33.3333
+	CLs      = 0.0783766 +/- 0
+	CLb      = 0.513226 +/- 0
+	CLsplusb = 0.0402249 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 44.4444
+[#0] PROGRESS:Eval -- P values for  signal_frac =  44.4444
+	CLs      = 0.0214296 +/- 0
+	CLb      = 0.506755 +/- 0
+	CLsplusb = 0.0108595 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 55.5556
+[#0] PROGRESS:Eval -- P values for  signal_frac =  55.5556
+	CLs      = 0.00471884 +/- 0
+	CLb      = 0.50198 +/- 0
+	CLsplusb = 0.00236876 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 66.6667
+[#0] PROGRESS:Eval -- P values for  signal_frac =  66.6667
+	CLs      = 0.000840238 +/- 0
+	CLb      = 0.497529 +/- 0
+	CLsplusb = 0.000418043 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 77.7778
+[#0] PROGRESS:Eval -- P values for  signal_frac =  77.7778
+	CLs      = 0.000122309 +/- 0
+	CLb      = 0.493526 +/- 0
+	CLsplusb = 6.03624e-05 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 88.8889
+[#0] PROGRESS:Eval -- P values for  signal_frac =  88.8889
+	CLs      = 1.46937e-05 +/- 0
+	CLb      = 0.48985 +/- 0
+	CLsplusb = 7.19773e-06 +/- 0
+
+[#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B_modelNM__snapshot
+[#0] PROGRESS:Eval -- Running for signal_frac = 100
+[#0] PROGRESS:Eval -- P values for  signal_frac =  100
+	CLs      = 1.47056e-06 +/- 0
+	CLb      = 0.486434 +/- 0
+	CLsplusb = 7.15331e-07 +/- 0
+
+Time to perform limit scan 
+Real time 0:01:49, CP time 108.650
+The computed upper limit is: 38.87 +/- 0
+Expected upper limits, using the B (alternate) model : 
+ expected limit (median) 38.4413
+ expected limit (-1 sig) 27.5673
+ expected limit (+1 sig) 54.0284
+ expected limit (-2 sig) 20.488
+ expected limit (+2 sig) 74.8459
