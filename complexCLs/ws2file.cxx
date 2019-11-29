@@ -54,10 +54,7 @@ void ws2file() {
 
     // ------------------Define the model:  n ~ Poisson (s+b) and m ~ Poisson (tau*b), set tau = 1.-------------------------
     RooWorkspace* w = new RooWorkspace("w");
-    //w->factory("Poisson::Pn(n[150,0,500], sum::splusb(s[0,0,100], b[100,0,300]))");
-    //w->factory("Poisson::Pm(m[100,0,500], prod::taub(tau[1.], b))");
-    //w->factory("PROD::model(Pn,Pm)");
-    //w->defineSet("poi", "s");
+
     RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
     RooGenericPdf rtbw4312("rtbw4312", "14.0*5.3*5.3*4312.0*4312.0/(22.0*(B_DTF_M*B_DTF_M-4312.0*4312.0)*(B_DTF_M*B_DTF_M-4312.0*4312.0)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.3*5.3)/(4312.0*4312.0))", RooArgList(B_DTF_M));
     RooGenericPdf rtbw4440("rtbw4400", "14.0*25.2*25.2*4440.2*4440.2/(22.0*(B_DTF_M*B_DTF_M-4440.2*4440.2)*(B_DTF_M*B_DTF_M-4440.2*4440.2)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(25.2*25.2)/(4440.2*4440.2))", RooArgList(B_DTF_M));
@@ -81,9 +78,6 @@ void ws2file() {
 
     RooAddPdf model("model", "model", RooArgList(smodel, bmodel), RooArgList(signal_frac, background_frac));
 
-    //RooRealVar s("s", "s", 0, 0, 4658);
-    //RooRealVar b("b", "b", 0, 4658, 4658);
-
     w->import(model);
     //w->import(s);
     w->defineSet("poi", "signal_frac");
@@ -92,15 +86,7 @@ void ws2file() {
     w->Print();
 
 
-    
     cout<<"========== import a dataset with the observed data values B_DTF_M =========="<<endl;
-    //double n = 120.;
-    //double m = 100.;
-    //w->defineSet("obsNM","n,m");   
-    //w->var("n")->setVal(n);
-    //w->var("m")->setVal(m);
-    //RooDataSet* dataNM = new RooDataSet("dNM", "dNM", *w->set("obsNM"));
-    //dataNM->add(*w->set("obsNM"));
 
     //set chain
     TChain *chain = new TChain("ReducedTree");
@@ -113,7 +99,6 @@ void ws2file() {
     w->Print();
 
 
-    
     cout<<"========== now we need new model configs, with PDF=\"model\"=========="<<endl;
     ModelConfig b_modelNM("B_modelNM", w);
     b_modelNM.SetPdf(*w->pdf("model"));
@@ -138,7 +123,6 @@ void ws2file() {
 
     w->import(b_modelNM);
     w->import(sb_modelNM);
-
     w->writeToFile("ws2file.root");
     
 }

@@ -18,10 +18,8 @@
 #include <TH1.h>
 #include <RooPlot.h>
 #include <RooMsgService.h>
-
 #include <TChain.h>
 #include <TFile.h>
-
 #include <RooStats/NumberCountingUtils.h>
 #include <RooStats/ModelConfig.h>
 #include <RooStats/HybridCalculator.h>
@@ -55,10 +53,7 @@ void ws2file() {
 
     // ------------------Define the model:  n ~ Poisson (s+b) and m ~ Poisson (tau*b), set tau = 1.-------------------------
     RooWorkspace* w = new RooWorkspace("w");
-    //w->factory("Poisson::Pn(n[150,0,500], sum::splusb(s[0,0,100], b[100,0,300]))");
-    //w->factory("Poisson::Pm(m[100,0,500], prod::taub(tau[1.], b))");
-    //w->factory("PROD::model(Pn,Pm)");
-    //w->defineSet("poi", "s");
+
     RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
     RooGenericPdf rtbw4312("rtbw4312", "14.0*5.3*5.3*4312.0*4312.0/(22.0*(B_DTF_M*B_DTF_M-4312.0*4312.0)*(B_DTF_M*B_DTF_M-4312.0*4312.0)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.3*5.3)/(4312.0*4312.0))", RooArgList(B_DTF_M));
     RooGenericPdf rtbw4440("rtbw4400", "14.0*25.2*25.2*4440.2*4440.2/(22.0*(B_DTF_M*B_DTF_M-4440.2*4440.2)*(B_DTF_M*B_DTF_M-4440.2*4440.2)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(25.2*25.2)/(4440.2*4440.2))", RooArgList(B_DTF_M));
@@ -80,19 +75,11 @@ void ws2file() {
                         RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
     RooPolynomial bmodel("bmodel", "bmodel", B_DTF_M, RooArgList(x1, x2, x3));
 
-    // add constraint of background here.
-    //RooRealVar global_b("global_b", "global_b", 2000, 3000);
-    //RooRealVar sigma_b("sigma_b", "sigma_b", 50);
-    //RooGaussian constr_b("constr_b", "constr_b", global_b, background_frac, sigma_b);
-
     RooAddPdf model0("model0", "model0", RooArgList(smodel, bmodel), RooArgList(signal_frac, background_frac));
 
-    //RooProdPdf model("model", "model", model0, constr_b);
-
-    //RooRealVar s("s", "s", 0, 0, 4658);
-    //RooRealVar b("b", "b", 0, 4658, 4658);
 
     w->import(model0);
+    // add constraint of background here.
     w->factory( "Gaussian::constr_b(global_b[2000.0,3000.0],background_frac,20)" );
 
     w->factory("PROD::model(model0,constr_b)");
@@ -106,13 +93,6 @@ void ws2file() {
 
     
     cout<<"========== import a dataset with the observed data values B_DTF_M =========="<<endl;
-    //double n = 120.;
-    //double m = 100.;
-    //w->defineSet("obsNM","n,m");   
-    //w->var("n")->setVal(n);
-    //w->var("m")->setVal(m);
-    //RooDataSet* dataNM = new RooDataSet("dNM", "dNM", *w->set("obsNM"));
-    //dataNM->add(*w->set("obsNM"));
 
     //set chain
     TChain *chain = new TChain("ReducedTree");
@@ -126,8 +106,6 @@ void ws2file() {
     w->import(*ds);
     w->Print();
 
-
-    
     cout<<"========== now we need new model configs, with PDF=\"model\"=========="<<endl;
     ModelConfig b_modelNM("B_modelNM", w);
 
