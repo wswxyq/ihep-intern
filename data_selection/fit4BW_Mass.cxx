@@ -24,19 +24,19 @@ void fit4BW_Mass()
 
     //TProof::Open("");
 
-	//set chain
+    //set chain
     TChain *chain = new TChain("ReducedTree");
-	//load file
+    //load file
     chain->Add("/scratchfs/others/wusw/BDT_reduced.root");
     //chain->SetProof();
- 
+
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_LOKI_FDS("B_LOKI_FDS", "B_LOKI_FDS", -RooNumber::infinity(), RooNumber::infinity());
 
 
 
-	/*
+    /*
     //...mass range
     const Double_t MassMin = 4000;
     const Double_t MassMax = 6000;
@@ -52,13 +52,13 @@ void fit4BW_Mass()
     chain->Project("h10", "B_DTF_M", totCuts );
 
     h10->Draw("E");
-	*/
+    */
 
-	
-	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
+
+    RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
     //ref: page 131 LHCb-ANA-2018-043
     /*
-    Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays, 
+    Discovery of narrow Pc(4312)+ → J/ψ p state in Λ0b → J/ψpK− decays,
     and observation of two-peak structure of
     the Pc(4450)+
     */
@@ -67,11 +67,11 @@ void fit4BW_Mass()
     RooRealVar M4440("M4440", "M4440", 4440.2);
     RooRealVar M4457("M4457", "M4457", 4456.6);
     RooRealVar Mx("Mx", "Mx", 4394.7);
-    
+
     RooRealVar x1("x1", "para1", 74.3657, -80, 80);
-	RooRealVar x2("x2", "para2", -6.47583e-05, -10.e-05, -4.e-05);
-	RooRealVar x3("x3", "para3", -3.33708e-06, -10.e-06, 2.0e-06);
-    
+    RooRealVar x2("x2", "para2", -6.47583e-05, -10.e-05, -4.e-05);
+    RooRealVar x3("x3", "para3", -3.33708e-06, -10.e-06, 2.0e-06);
+
 
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
@@ -89,60 +89,60 @@ void fit4BW_Mass()
     RooRealVar signal_frac_x("signal_frac_x", "signal_frac_x", 0.1, 0., 1.);
 
     RooAddPdf signal("signal", "signal", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
-                        RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
+                     RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
     RooPolynomial background("background", "background", x, RooArgList(x1, x2, x3));
 
     RooAddPdf event("event", "event", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx,
-                         background), RooArgList(signal_frac_4312, signal_frac_4440, 
-                         signal_frac_4457, signal_frac_x));
+                    background), RooArgList(signal_frac_4312, signal_frac_4440,
+                                            signal_frac_4457, signal_frac_x));
 
 
 
-    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
-		                Cut(""));
+    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain),
+                                  Cut(""));
 
     auto result= event.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
-	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
-	RooPlot* xframe_2 = x.frame(Title(" ")) ;
+    RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
+    RooPlot* xframe_2 = x.frame(Title(" ")) ;
 
-	xframe_2->SetYTitle("pull distribution");
+    xframe_2->SetYTitle("pull distribution");
 
 
-	ds->plotOn(xframe);
-	event.plotOn(xframe) ;
-	RooHist* hpull = xframe->pullHist() ;
-	event.plotOn(xframe,Components(rtbw4312),LineColor(kPink),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(rtbw4440),LineColor(kGreen),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(rtbw4457),LineColor(kYellow),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(rtbwx),LineColor(kOrange),LineStyle(kDashed)) ;
-	event.plotOn(xframe,Components(background),LineColor(kCyan),LineStyle(kDashed)) ;
+    ds->plotOn(xframe);
+    event.plotOn(xframe) ;
+    RooHist* hpull = xframe->pullHist() ;
+    event.plotOn(xframe,Components(rtbw4312),LineColor(kPink),LineStyle(kDashed)) ;
+    event.plotOn(xframe,Components(rtbw4440),LineColor(kGreen),LineStyle(kDashed)) ;
+    event.plotOn(xframe,Components(rtbw4457),LineColor(kYellow),LineStyle(kDashed)) ;
+    event.plotOn(xframe,Components(rtbwx),LineColor(kOrange),LineStyle(kDashed)) ;
+    event.plotOn(xframe,Components(background),LineColor(kCyan),LineStyle(kDashed)) ;
     xframe_2->addPlotable(hpull, "P") ;
 
     TCanvas* c = new TCanvas("total_plot","total_plot", 1200, 1000) ;
-	c->Divide(1,2) ;
-	c->cd(1) ; 
+    c->Divide(1,2) ;
+    c->cd(1) ;
     xframe->Draw() ;
 
-	c->cd(2) ; 
-	//gPad->SetLeftMargin(0.15) ; 
-	//xframe_2->GetYaxis()->SetTitleOffset(1.6) ; 
-	//xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
-	xframe_2->Draw() ;
+    c->cd(2) ;
+    //gPad->SetLeftMargin(0.15) ;
+    //xframe_2->GetYaxis()->SetTitleOffset(1.6) ;
+    //xframe_2->GetYaxis()->SetRangeUser(-5., 5.);
+    xframe_2->Draw() ;
     c->Print("./fit.pdf");
 
 
 
-	std::ofstream myfile;
+    std::ofstream myfile;
     myfile.open ("./fit.txt");
-	myfile<<"number of entries in dataset: "<<ds->numEntries()<<endl;
-	myfile<<"x1: "<<x1.getVal()<<endl;
-	myfile<<"x2: "<<x2.getVal()<<endl;
-	myfile<<"x3: "<<x3.getVal()<<endl;
-	myfile<<"signal_frac_4312: "<<signal_frac_4312.getVal()<<endl;
-	myfile<<"signal_frac_4440: "<<signal_frac_4440.getVal()<<endl;
-	myfile<<"signal_frac_4457: "<<signal_frac_4457.getVal()<<endl;
-	myfile<<"signal_frac_x: "<<signal_frac_x.getVal()<<endl;
+    myfile<<"number of entries in dataset: "<<ds->numEntries()<<endl;
+    myfile<<"x1: "<<x1.getVal()<<endl;
+    myfile<<"x2: "<<x2.getVal()<<endl;
+    myfile<<"x3: "<<x3.getVal()<<endl;
+    myfile<<"signal_frac_4312: "<<signal_frac_4312.getVal()<<endl;
+    myfile<<"signal_frac_4440: "<<signal_frac_4440.getVal()<<endl;
+    myfile<<"signal_frac_4457: "<<signal_frac_4457.getVal()<<endl;
+    myfile<<"signal_frac_x: "<<signal_frac_x.getVal()<<endl;
     myfile.close();
     x1.Print();
     x2.Print();
@@ -153,5 +153,5 @@ void fit4BW_Mass()
     signal_frac_x.Print();
 
     result->Print("v");
-    
+
 }

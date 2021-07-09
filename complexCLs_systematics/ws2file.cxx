@@ -57,7 +57,7 @@ void ws2file() {
     RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
     RooGenericPdf rtbw4312("rtbw4312", "14.0*5.3*5.3*4312.0*4312.0/(22.0*(B_DTF_M*B_DTF_M-4312.0*4312.0)*(B_DTF_M*B_DTF_M-4312.0*4312.0)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.3*5.3)/(4312.0*4312.0))", RooArgList(B_DTF_M));
     RooGenericPdf rtbw4440("rtbw4400", "14.0*25.2*25.2*4440.2*4440.2/(22.0*(B_DTF_M*B_DTF_M-4440.2*4440.2)*(B_DTF_M*B_DTF_M-4440.2*4440.2)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(25.2*25.2)/(4440.2*4440.2))", RooArgList(B_DTF_M));
-    RooGenericPdf rtbw4457("rtbw4457", "14.0*5.5*5.5*4456.6*4456.6/(22.0*(B_DTF_M*B_DTF_M-4456.6*4456.6)*(B_DTF_M*B_DTF_M-4456.6*4456.6)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.5*5.5)/(4456.6*4456.6))", RooArgList(B_DTF_M));    
+    RooGenericPdf rtbw4457("rtbw4457", "14.0*5.5*5.5*4456.6*4456.6/(22.0*(B_DTF_M*B_DTF_M-4456.6*4456.6)*(B_DTF_M*B_DTF_M-4456.6*4456.6)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(5.5*5.5)/(4456.6*4456.6))", RooArgList(B_DTF_M));
     RooGenericPdf rtbwx("rtbwx", "14.0*62.7*62.7*4394.7*4394.7/(22.0*(B_DTF_M*B_DTF_M-4394.7*4394.7)*(B_DTF_M*B_DTF_M-4394.7*4394.7)+B_DTF_M*B_DTF_M*B_DTF_M*B_DTF_M*(62.7*62.7)/(4394.7*4394.7))", RooArgList(B_DTF_M));
     //fraction of b-w
     RooRealVar signal_frac_4312("signal_frac_4312", "signal_frac_4312", 8.8406e-03, 0., 1.);
@@ -68,11 +68,11 @@ void ws2file() {
     //polynimial parameter
     //fit parameter first//////////////////////////
     RooRealVar x1("x1", "para1", 7.3718e+01);
-	RooRealVar x2("x2", "para2", -1.0000e-04);
-	RooRealVar x3("x3", "para3", -3.3642e-06);
+    RooRealVar x2("x2", "para2", -1.0000e-04);
+    RooRealVar x3("x3", "para3", -3.3642e-06);
 
     RooAddPdf smodel("smodel", "smodel", RooArgList(rtbw4312, rtbw4440, rtbw4457, rtbwx),
-                        RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
+                     RooArgList(signal_frac_4312, signal_frac_4440, signal_frac_4457));
     RooPolynomial bmodel("bmodel", "bmodel", B_DTF_M, RooArgList(x1, x2, x3));
 
     RooAddPdf model0("model0", "model0", RooArgList(smodel, bmodel), RooArgList(signal_frac, background_frac));
@@ -91,15 +91,15 @@ void ws2file() {
     w->var("global_b")->setConstant(true);
     w->Print();
 
-    
+
     cout<<"========== import a dataset with the observed data values B_DTF_M =========="<<endl;
 
     //set chain
     TChain *chain = new TChain("ReducedTree");
-	//load file
+    //load file
     chain->Add("BDT_reduced.root");
-    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(B_DTF_M), Import(*chain), 
-		            Cut(""));
+    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(B_DTF_M), Import(*chain),
+                                  Cut(""));
     w->defineSet("B_DTF_M", "B_DTF_M");
     w->defineSet("globObs", "global_b");
     w->defineSet("nuisance", "background_frac");
@@ -119,7 +119,7 @@ void ws2file() {
     w->var("signal_frac")->setVal(0.0);
     b_modelNM.SetSnapshot(*w->set("poi"));     // sets up b hypothesis as s = 0
 
-    
+
     cout<<"========== create the alternate (s+b) ModelConfig with given value of s =========="<<endl;
     double s_value = 0.001;
     ModelConfig sb_modelNM("S+B_modelNM", w);
@@ -139,6 +139,6 @@ void ws2file() {
     w->import(sb_modelNM);
 
     w->writeToFile("ws2file.root");
-    
+
 }
 

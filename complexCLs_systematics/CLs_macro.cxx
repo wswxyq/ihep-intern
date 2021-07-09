@@ -1,6 +1,6 @@
 #include "StandardHypoTestInvDemo.C"
 
-void CLs_macro(){
+void CLs_macro() {
 
 /// type = 0 Freq calculator
 /// type = 1 Hybrid calculator
@@ -16,8 +16,8 @@ void CLs_macro(){
 ///              = 6 Number of observed event as test statistic
 /// ~~~
 //optHTInv.noSystematics=true; //if you wanna take systematics into account, please set it false.
-    
-StandardHypoTestInvDemo("ws2file.root","w","S+B_modelNM","B_modelNM","ds",
-                                2, 3, true,
-                                10, 0, 100, 2000, true);
+
+    StandardHypoTestInvDemo("ws2file.root","w","S+B_modelNM","B_modelNM","ds",
+                            2, 3, true,
+                            10, 0, 100, 2000, true);
 }

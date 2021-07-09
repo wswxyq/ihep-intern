@@ -23,19 +23,19 @@ void fit4BW_Mass_background()
 
     //TProof::Open("");
 
-	//set chain
+    //set chain
     TChain *chain = new TChain("ReducedTree");
-	//load file
+    //load file
     chain->Add("/scratchfs/others/wusw/BDT_reduced.root");
     //chain->SetProof();
- 
+
     //RooRealVar B_DTF_M("B_DTF_M", "B_DTF_M", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_BDT("B_BDT", "B_BDT", -RooNumber::infinity(), RooNumber::infinity());
     RooRealVar B_LOKI_FDS("B_LOKI_FDS", "B_LOKI_FDS", -RooNumber::infinity(), RooNumber::infinity());
 
 
 
-	/*
+    /*
     //...mass range
     const Double_t MassMin = 4000;
     const Double_t MassMax = 6000;
@@ -51,18 +51,18 @@ void fit4BW_Mass_background()
     chain->Project("h10", "B_DTF_M", totCuts );
 
     h10->Draw("E");
-	*/
+    */
 
-	
-	RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
+
+    RooRealVar x("B_DTF_M", "B_DTF_M", 4200, 4600, "MeV");
 
 
     RooRealVar x1("x1", "para1", 74.3657, -100, 100);
-	RooRealVar x2("x2", "para2", -6.47583e-05, -100, 100);
-	RooRealVar x3("x3", "para3", -3.33708e-06, -10, 10);
-	RooRealVar x4("x4", "para4", 0.48, -10., 10.);
-	RooRealVar x5("x5", "para5", 0.48, -10., 10.);
-    
+    RooRealVar x2("x2", "para2", -6.47583e-05, -100, 100);
+    RooRealVar x3("x3", "para3", -3.33708e-06, -10, 10);
+    RooRealVar x4("x4", "para4", 0.48, -10., 10.);
+    RooRealVar x5("x5", "para5", 0.48, -10., 10.);
+
     /*
     RooRealVar gamma4312("gamma4312", "gamma4312", 5.3);
     RooRealVar gamma4440("gamma4440", "gamma4440", 25.2);
@@ -89,18 +89,18 @@ void fit4BW_Mass_background()
 
 
 
-    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain), 
-		                Cut(""));
+    RooDataSet *ds=new RooDataSet("ds", "ds", RooArgSet(x, B_BDT, B_LOKI_FDS), Import(*chain),
+                                  Cut(""));
 
     auto result= background.fitTo(*ds, RooFit::NumCPU(64), RooFit::Save(kTRUE), RooFit::Minos(kTRUE));
 
-	RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
+    RooPlot* xframe = x.frame(Title("Event p.d.f.")) ;
 
-	ds->plotOn(xframe, Binning(20));
-	background.plotOn(xframe) ;
-	RooHist* hpull = xframe->pullHist() ;
+    ds->plotOn(xframe, Binning(20));
+    background.plotOn(xframe) ;
+    RooHist* hpull = xframe->pullHist() ;
 
-        
+
     TCanvas* c = new TCanvas("total_plot","total_plot", 600, 600) ;
 
     xframe->Draw() ;
@@ -113,5 +113,5 @@ void fit4BW_Mass_background()
     result->floatParsFinal().Print("s");
     ds->Print();
 
-    
+
 }
